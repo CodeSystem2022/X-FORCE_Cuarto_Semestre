@@ -115,24 +115,37 @@ header{
     position: absolute;
     display: flex;
     flex-direction: row;
-
+    top: 0px;
+    left: 0%;
     width: 100%;
     height: 70px;
-
+    
     align-items: center;
-
+    margin: auto;
     background-image: url(imgs/Marmol\ claro2.jpg);
     background-size: cover;
 
+
 }
 
+a:link { text-decoration: none;
+    color: black;
+}
+a:visited {
+text-decoration: none;
+}
+a:hover {
+    color: rgb(0, 217, 255);
+  }
+
+ 
 .nav-bar{
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 60px;
-
+    margin: auto;
     align-items: center;
 
 }
@@ -148,19 +161,34 @@ width: 100%;
 align-items: center;
 
 }
-.nav-right{
+.nav-block{
     position: relative;
+    width: 33%;
     display: flex;
     flex-direction: row;
     margin-left: auto;
+    
 }
-.nav-link{
+.nav-left{
+    text-align: left;
+}
+.nav-right{
+    text-align: right;
+}
+.nav-center{
+
+    display: block;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    
+}
+.nav-liank{
     position: relative;
     display: flex;
-    margin: 35px;
-    
+ 
     margin-left: 35px;
-
+    
 }
 .nav-link2{
     position: relative;
@@ -172,9 +200,11 @@ align-items: center;
 }
 
 
-h1{
-    margin: 5px
+.titulo{
+    font-family: 'Playfair Display SC', serif;
+
 }
+
 .nav-bar{
     position: relative;
     display: flex;
@@ -183,7 +213,7 @@ h1{
     height: 60px;
 
     justify-content: center;
-
+    
 }
 .nav-ul{
 position: relative;
@@ -205,12 +235,14 @@ align-items: center;
     
     margin-left: 35px;
 
+
 }
 .nav-link2{
     position: relative;
     display: flex;
     margin: 35px;
     margin-left: auto;
-   
+
+
     
 }
