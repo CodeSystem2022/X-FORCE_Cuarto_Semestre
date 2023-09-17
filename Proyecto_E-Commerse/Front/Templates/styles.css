@@ -1,0 +1,22 @@
+/* Fuentes Usadas: 
+font-family: 'Montserrat', sans-serif;  (Cuerpo)
+font-family: 'Playfair Display SC', serif;;   (Títulos)
+*/
+
+/*Variables*/
+
+:root {
+    --ColorPrimario: brown;
+    --ColorSecundario: brown;
+    --ColorTerciario: brown;
+    --FondoClaro:"";
+    --FondoOscuro:"";
+    
+  }
+
+h1{
+    font-family: 'Playfair Display SC', sans-serif;
+}
+h4{
+    font-family: 'Montserrat', sans-serif;
+}
