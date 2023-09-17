@@ -14,12 +14,16 @@ font-family: 'Playfair Display SC', serif;;   (Títulos)
     
   }
 
+  *{
+    font-family: 'Montserrat', sans-serif;
+  }
+
   footer{
     position: fixed;
     bottom: 0px;
     left: 0%;
     width: 100%;
-    background-image: url(../Templates/imgs/Marmol\ claro2.jpg);
+    background-image: url(imgs/Marmol\ claro2.jpg);
     background-size: cover;
 }
 
@@ -95,4 +99,118 @@ font-family: 'Playfair Display SC', serif;;   (Títulos)
 .copy{
     display: inline-block;
     margin: 5px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+header{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: 70px;
+
+    align-items: center;
+
+    background-image: url(imgs/Marmol\ claro2.jpg);
+    background-size: cover;
+
+}
+
+.nav-bar{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+
+    align-items: center;
+
+}
+.nav-ul{
+position: relative;
+display: flex;
+flex-direction: row;
+
+
+height: 70px;
+width: 100%;
+
+align-items: center;
+
+}
+.nav-right{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+}
+.nav-link{
+    position: relative;
+    display: flex;
+    margin: 35px;
+    
+    margin-left: 35px;
+
+}
+.nav-link2{
+    position: relative;
+    display: flex;
+    margin: 35px;
+
+   
+    
+}
+
+
+h1{
+    margin: 5px
+}
+.nav-bar{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+
+    justify-content: center;
+
+}
+.nav-ul{
+position: relative;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+height: 70px;
+width: 100%;
+
+align-items: center;
+
+}
+
+.nav-link{
+    position: relative;
+    display: flex;
+    margin: 35px;
+    
+    margin-left: 35px;
+
+}
+.nav-link2{
+    position: relative;
+    display: flex;
+    margin: 35px;
+    margin-left: auto;
+   
+    
 }
