@@ -14,9 +14,85 @@ font-family: 'Playfair Display SC', serif;;   (Títulos)
     
   }
 
-h1{
-    font-family: 'Playfair Display SC', sans-serif;
+  footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0%;
+    width: 100%;
+    background-image: url(../Templates/imgs/Marmol\ claro2.jpg);
+    background-size: cover;
 }
-h4{
-    font-family: 'Montserrat', sans-serif;
+
+.container__footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.box__footer{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+}
+
+.box__footer .logo img{
+    width: 60px;
+    margin-bottom: -20px;
+}
+
+.box__footer .terms{
+    max-width: 400px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.box__footer h2{
+    display: none;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 22px;
+    text-decoration: overline;
+}
+
+.box__footer a{
+    display: none;
+    margin-top: 20px;
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.box__footer a:hover{
+    opacity: 0.8;
+}
+
+.box__footer a .fa-brands{
+    font-size: 20px;
+}
+
+.box__copyright{
+    max-width: 1300px;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.box__copyright p{
+    margin-top: 10px;
+}
+
+.box__copyright hr{
+    border: none;
+    height: 1px;
+    background-color: goldenrod;
+}
+.copy{
+    display: inline-block;
+    margin: 5px 0px;
 }
