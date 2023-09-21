@@ -10,10 +10,14 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     --ColorSecundario: rgb(216, 164, 32);
     --ColorTerciario: rgb(0, 217, 255);
     --Sombras: rgba(0,0,0,0.75);
-    --FondoMarmol:url(imgs/Marmol\ claro2.jpg);
+    --Fondo: #e1e1e1;
     --SombraNeon: #0e0024;
     --FondoBody: #ffffff; 
   }
+
+  .transition{
+    transition: color 0.1s, box-shadow 0.1s;
+}
 
   *{
     font-family: 'Montserrat', sans-serif; 
@@ -44,6 +48,7 @@ body{
     margin: 0px;
 
     background: var(--FondoBody);
+    transition: all 0.2s;
 }
 
 footer{
@@ -52,12 +57,13 @@ footer{
     left: 0%;
     width: 100%;
     height: 70px;
-    background-image: var(--FondoMarmol);
+    background-color: var(--Fondo);
     background-size: cover;
 
     -webkit-box-shadow: 9px 6px 28px -10px var(--Sombras);
     -moz-box-shadow: 9px 6px 28px -10px var(--Sombras);
     box-shadow: 9px 6px 28px -10px var(--Sombras);
+    transition: all 0.2s;
     
 }
 
@@ -254,6 +260,7 @@ aside{
     display: flex;
     height: 520px;
     align-items: center;
+    transition: all 0.2s;
     
 }
 
@@ -266,7 +273,7 @@ aside{
     height: 60%;
     overflow:initial;
 
-    background-image: var(--FondoMarmol);
+    background-color: var(--Fondo);
     background-size: cover;
     border-radius: 10px;
 
@@ -330,7 +337,7 @@ aside li{
     z-index: 10;
     max-height: 200px;
 
-    background-image: var(--FondoMarmol);
+    background-color: var(--Fondo);
     background-size: cover;
     color: var(--ColorTerciario);
     font-weight: 100;
@@ -381,14 +388,16 @@ header{
     top: 0px;
     left: 0%;
     align-items: center;
+    
 
     width: 100%;
     height: 70px;
     margin: auto;
 
 
-    background-image: var(--FondoMarmol);
+    background-color: var(--Fondo);
     background-size: cover;
+    transition: all 0.2s;
 
     -webkit-box-shadow: 9px -6px 28px -3px var(--Sombras);
     -moz-box-shadow: 9px -6px 28px -3px var(--Sombras);
