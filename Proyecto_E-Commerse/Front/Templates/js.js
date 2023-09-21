@@ -28,7 +28,7 @@ btn.addEventListener('click', () => {
         document.documentElement.style.setProperty('--ColorTerciario', 'rgb(0, 217, 255)')
         document.documentElement.style.setProperty('--Fondo', ' #e1e1e1');
         document.documentElement.style.setProperty('--FondoBody', '#ffffff');
-        img2.style.color = '#dbadf0';
+        img2.style.color = '#7d1fa8';
     }
     isClicked = !isClicked;
 });

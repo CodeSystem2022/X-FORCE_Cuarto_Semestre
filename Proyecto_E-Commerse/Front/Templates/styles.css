@@ -11,7 +11,7 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     --ColorTerciario: rgb(0, 217, 255);
     --Sombras: rgba(0,0,0,0.75);
     --Fondo: #e1e1e1;
-    --SombraNeon: #0e0024;
+    --SombraNeon: #1c1c1c;
     --FondoBody: #ffffff; 
   }
 
@@ -94,7 +94,7 @@ footer{
 
 .btn-neon-black:hover{
     background: var(--SombraNeon);
-    box-shadow: 0 0 10px var(--SombraNeon), 0 0 40px var(--SombraNeon), 0 0 80px var(--SombraNeon);
+    box-shadow: 0 0 15px var(--SombraNeon), 0 0 45px var(--SombraNeon), 0 0 85px var(--SombraNeon);
 }
 
 #imagen2{
