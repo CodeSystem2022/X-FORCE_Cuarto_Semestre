@@ -11,7 +11,8 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     --ColorTerciario: rgb(0, 217, 255);
     --Sombras: rgba(0,0,0,0.75);
     --FondoMarmol:url(imgs/Marmol\ claro2.jpg);
-    
+    --SombraNeon: #0e0024;
+    --FondoBody: #ffffff; 
   }
 
   *{
@@ -23,7 +24,7 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     width: 7px;
 }
 
-  *::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background-color: none;
 }
 
@@ -32,7 +33,7 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     border-radius: 20px;
 }
 
-  body{
+body{
     position: absolute;
     display: flex;
     align-items: center; /* Centra horizontalmente */
@@ -41,9 +42,11 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
 
     top: 0px;
     margin: 0px;
-  }
 
-  footer{
+    background: var(--FondoBody);
+}
+
+footer{
     position: fixed;
     bottom: 0px;
     left: 0%;
@@ -57,6 +60,117 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     box-shadow: 9px 6px 28px -10px var(--Sombras);
     
 }
+
+
+
+/*
+    BOTON NEON
+*/
+
+.btn-neon-black{
+    position: absolute;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    right: 50px;
+    justify-content: center;
+    align-items: center;
+
+
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.btn-neon-black:hover{
+    background: var(--SombraNeon);
+    box-shadow: 0 0 10px var(--SombraNeon), 0 0 40px var(--SombraNeon), 0 0 80px var(--SombraNeon);
+}
+
+#imagen2{
+    display: none;
+}
+
+
+
+
+
+
+/*
+.btn-neon:hover{
+    background: #fcc154;
+    box-shadow: 0 0 10px #fcc154, 0 0 40px #fcc154, 0 0 80px #fcc154;
+    transition-delay: 0.1s;
+}
+*/
+
+/* ANIMACION LINDA
+.btn-neon span{
+    position: absolute;
+    display: block;
+}
+
+
+
+#span1{
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,transparent,#a945c7);
+}
+.btn-neon:hover #span1{
+    left: 100%;
+    transition: 1s;
+}
+
+#span3{
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg,transparent,#a945c7);
+}
+.btn-neon:hover #span3{
+    right: 100%;
+    transition: 1s;
+}
+
+#span2{
+    top: -100px;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg,transparent,#a945c7);
+}
+.btn-neon:hover #span2{
+    top: 100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+#span4{
+    bottom: -100px;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg,transparent,#a945c7);
+}
+.btn-neon:hover #span4{
+    bottom: 100%;
+    transition: 1s;
+    transition-delay: 0.75s;
+}
+
+*/
+
+
+
+
 
 .container__footer{
     display: none;
@@ -124,14 +238,13 @@ footer hr{
     height: 1px;
     background-color: var(--ColorSecundario);
     margin: 0;
-    margin-top: 10px;
+    margin-top: 1px;
+    margin-bottom: 4px;
 }
 .copy{
     display: inline-block;
     margin: 0px 10px;
 }
-
-
 
 
 
@@ -283,7 +396,7 @@ header{
 }
 
 a:link { text-decoration: none;
-    color: black;
+    color: --ColorPrimario;
 }
 a:visited {
 text-decoration: none;
