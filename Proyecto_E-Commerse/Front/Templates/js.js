@@ -4,13 +4,14 @@ const img2 = document.querySelector('.fa-solid');
 let isClicked = false;
 
 btn.addEventListener('click', () => {
+    
     if (!isClicked) {
         img1.classList.add('fa-sun');
         img1.classList.add('fa-moon');
         img2.classList.remove('fa-moon');
         img2.classList.add('fa-sun');
         img2.style.color = '#e5a315';
-        document.documentElement.style.setProperty('--Sombras', '#cc3333');
+        document.documentElement.style.setProperty('--Sombras', '#d4af37');
         document.documentElement.style.setProperty('--SombraNeon', '#eed48c');
         document.documentElement.style.setProperty('--ColorPrimario', '#ececec');
         document.documentElement.style.setProperty('--ColorTerciario', 'rgb(145, 3, 3)');
