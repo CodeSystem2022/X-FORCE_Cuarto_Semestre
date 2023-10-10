@@ -197,9 +197,9 @@ footer hr{
 
 
 
-
+/*-------------------------------------------Aside------------------------------------------------------*/
 aside{
-    position: absolute;
+    position: relative;
     display: flex;
     height: 520px;
     align-items: center;
@@ -318,19 +318,45 @@ aside li{
         height: 150px;
     }
 }
+/*-------------------------------------------Aside------------------------------------------------------*/
+
+.content {
+    position: relative;
+    display: inline-block;
+    margin-left: 8ch;
+    
+    width: 75%;
+
+    
+}
+.table-element{
+    display: inline-block;
+    max-height: 36vh;
+    overflow: hidden;
+
+
+}
+.table-content{
+    position: relative;
+    display: flex;
+    border-radius:10px;
+    margin: 5px;
+    align-items: center;
+
+    background-color:var(--Fondo);
+}
 
 
 
-
-
-
+/*-------------------------------------------Header------------------------------------------------------*/
 header{
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: row;
     top: 0px;
     left: 0%;
     align-items: center;
+    z-index: 10;
     
 
     width: 100%;
@@ -449,3 +475,4 @@ align-items: center;
     margin: 35px;
     margin-left: auto;
 }
+/*-------------------------------------------Header------------------------------------------------------*/
