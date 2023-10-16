@@ -11,7 +11,7 @@
 ## 📚 Temas:
 
 ## Ahora aquí les presento un proyecto creado por Daniel Guerrero, este proyecto es un Stack -> tiene desde el backend al frontend, explicado paso a paso, testeando cada conexión...
-## EL STACK ES -> PERN => PostgreSQL, Express, Node, React
+### EL STACK ES -> PERN => PostgreSQL, Express, Node, React
 
 - 5.1 Introducción al proyecto -> Parte 1 y 2
 
