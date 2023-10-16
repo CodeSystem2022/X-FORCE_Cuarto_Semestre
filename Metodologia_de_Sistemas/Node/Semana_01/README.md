@@ -10,7 +10,7 @@
 
 ## 📚 Temas:
 
-## Comenzamos a ver las bases de como crear un e-commerce
+## Comenzamos con Node..
 
 - 1.1 Ahora veremos las diferentes instalaciones que necesitaremos
 
