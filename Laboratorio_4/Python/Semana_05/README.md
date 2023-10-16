@@ -1,6 +1,5 @@
 # Clase 04 - Python - Hoy hay CUESTIONARIO
-## Scrum Master Enzo Cruzate
-
+## Scrum Master Jeronimo Alvarez
 ---
 
 ### *Abrió:* Lunes, 11 de Septiembre de 2023, 18:00
