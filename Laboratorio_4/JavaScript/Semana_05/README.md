@@ -1,5 +1,5 @@
 # Clase 04 - JavaScript - E-commerce Básico Parte 04
-## Scrum Master Enzo Cruzate
+## Scrum Master Jeronimo Alvarez
 
 ---
 
