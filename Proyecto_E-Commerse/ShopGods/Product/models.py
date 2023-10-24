@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Purchases.models import Purchases
+from Company.models import Company
 
 class Label(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False, unique=True)
@@ -15,7 +16,8 @@ class Product(models.Model):
     stock = models.IntegerField(blank=True, null=True)
     sales_quantity = models.IntegerField(blank=True, null=True)
     label =  models.ManyToManyField(Label, blank=True, null=True)
-    
+    company = models.ManyToManyField(Company, blank=True, null= True)
+        
     def __str__(self):
         return self.name
            
