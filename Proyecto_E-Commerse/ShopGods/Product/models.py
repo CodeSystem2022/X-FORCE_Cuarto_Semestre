@@ -16,7 +16,7 @@ class Product(models.Model):
     stock = models.IntegerField(blank=True, null=True)
     sales_quantity = models.IntegerField(blank=True, null=True)
     label =  models.ManyToManyField(Label, blank=True, null=True)
-    company = models.ManyToManyField(Company, blank=True, null= True)
+    company = models.ForeignKey(Company, blank=False, null=False)
         
     def __str__(self):
         return self.name
