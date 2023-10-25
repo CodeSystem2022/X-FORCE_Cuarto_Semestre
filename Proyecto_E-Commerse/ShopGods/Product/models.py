@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from Purchases.models import Purchases
 from Company.models import Company
 
 class Label(models.Model):
@@ -16,7 +15,7 @@ class Product(models.Model):
     stock = models.IntegerField(blank=True, null=True)
     sales_quantity = models.IntegerField(blank=True, null=True)
     label =  models.ManyToManyField(Label, blank=True, null=True)
-    company = models.ForeignKey(Company, blank=False, null=False)
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, blank=True, null=True)
         
     def __str__(self):
         return self.name
@@ -42,6 +41,7 @@ class SubSubCategory(models.Model):
     def __str__(self):
         return self.name
 
+from Purchases.models import Purchases
 class Key(models.Model):
     key = models.IntegerField(blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)   
