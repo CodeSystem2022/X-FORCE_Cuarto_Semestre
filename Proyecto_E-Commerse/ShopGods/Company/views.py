@@ -1,13 +1,37 @@
 from Company.models import Company
-from django.http import HttpResponse
+from django.db.models import Q
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 
-def getCompany(value: int | str, colum_name: str = 'both'):
-    return colum_name
 
-def getCompanies(amount: int = None, search: any = None): # denifinir parametros de filtros
-    return
+def getCompanyById(id: int):
+    try:
+        company = get_object_or_404(Company,id=id)
+        return company
+    except Exception:
+        return None
+    
+def getCompanies(amount: int = None, search: str = None):
+    print('Hola')
+    if search:
+        condition = Q(name__icontains=search)
+        if amount:
+            return Company.objects.filter(condition)[:amount]
+        else:
+            return Company.objects.filter(condition)
 
-def createCompany(company: Company):
+    if not search:
+        if amount:
+            return Company.objects.filter()[:amount]
+        else:
+            print('ACA 1')
+            return Company.objects.filter()
+        
+# Facu - Funcion que permita crear una compania
+def createCompany(company):
+    # Crear una nueva persona
+    # persona = Persona(nombre="Juan", apellido="Pérez", edad=25)
+    # persona.save()
     return
 
 def createCompanies():
@@ -16,9 +40,12 @@ def createCompanies():
 def updateCompany(company: Company):
     return
 
-def deleteCompany():
+# Cristian - Funcion que borra una fila por id
+def deleteCompanyById(id: int):
     return
 
 def test(request):
-    print(getCompany(12))
-    return HttpResponse("Hola mundo")
+    companies = getCompanies()
+    print(companies)
+    return HttpResponse('Hola')
+
