@@ -42,7 +42,14 @@ def updateCompany(company: Company):
 
 # Cristian - Funcion que borra una fila por id
 def deleteCompanyById(id: int):
-    return
+    try:
+        fila = get_object_or_404(Company, id=Id)
+        fila.delete()
+        return True
+    except Company.e:
+        return False
+
+
 
 def test(request):
     companies = getCompanies()
