@@ -8,24 +8,25 @@ def getCompanyById(id: int):
     try:
         company = get_object_or_404(Company,id=id)
         return company
-    except Exception:
-        return None
+    except Exception as e:
+        return e
     
 def getCompanies(amount: int = None, search: str = None):
-    print('Hola')
-    if search:
-        condition = Q(name__icontains=search)
-        if amount:
-            return Company.objects.filter(condition)[:amount]
-        else:
-            return Company.objects.filter(condition)
+    try:
+        if search:
+            condition = Q(name__icontains=search)
+            if amount:
+                return Company.objects.filter(condition)[:amount]
+            else:
+                return Company.objects.filter(condition)
 
-    if not search:
-        if amount:
-            return Company.objects.filter()[:amount]
-        else:
-            print('ACA 1')
-            return Company.objects.filter()
+        if not search:
+            if amount:
+                return Company.objects.filter()[:amount]
+            else:
+                return Company.objects.filter()
+    except Exception as e:
+        return e
         
 # Facu - Funcion que permita crear una compania
 def createCompany(company):
@@ -34,23 +35,30 @@ def createCompany(company):
     # persona.save()
     return
 
-def createCompanies():
-    return
+def createCompanies(companies):
+    try:
+        Company.objects.bulk_create(companies)
+        return True
+    except Exception as e:
+        return e
 
-def updateCompany(company: Company):
+def updateCompany(id, company):
+    
     return
 
 # Cristian - Funcion que borra una fila por id
 def deleteCompanyById(id: int):
     try:
-        fila = get_object_or_404(Company, id=id)
-        fila.delete()
+        company = get_object_or_404(Company, id=id)
+        company.delete()
         return True
     except Exception as e:
         return e
 
 def test(request):
-    companies = getCompanies()
-    print(companies)
+    companie = getCompanyById(6)
+    print(f'Error -> {type(companie)}')
+    if type(companie) is Http404:
+        print("El error es 404")
     return HttpResponse('Hola')
 
