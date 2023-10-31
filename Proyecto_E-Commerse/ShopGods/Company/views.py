@@ -28,13 +28,15 @@ def getCompanies(amount: int = None, search: str = None):
     except Exception as e:
         return e
         
-# Facu - Funcion que permita crear una compania
-def createCompany(company):
-    # Crear una nueva persona
-    # persona = Persona(nombre="Juan", apellido="Pérez", edad=25)
-    # persona.save()
-    return
 
+def createCompany(company_param):
+    try:
+        company = Company(name=company_param["name"]) 
+        company.save()
+        return True
+    except Exception as e:
+        return e     
+         
 def createCompanies(companies):
     try:
         Company.objects.bulk_create(companies)
@@ -56,9 +58,9 @@ def deleteCompanyById(id: int):
         return e
 
 def test(request):
-    companie = getCompanyById(6)
-    print(f'Error -> {type(companie)}')
-    if type(companie) is Http404:
+    company = createCompany({"name": "Microsoft"})
+    print(f'Tipo de clase -> {type(company)}')
+    if type(company) is Http404:
         print("El error es 404")
     return HttpResponse('Hola')
 
