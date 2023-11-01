@@ -39,7 +39,10 @@ def createCompany(company_param):
          
 def createCompanies(companies):
     try:
-        Company.objects.bulk_create(companies)
+        company_list = []
+        for companie in companies:
+            company_list.append(Company(name=companie["name"]))
+        Company.objects.bulk_create(company_list)
         return True
     except Exception as e:
         return e
@@ -58,9 +61,21 @@ def deleteCompanyById(id: int):
         return e
 
 def test(request):
-    company = createCompany({"name": "Microsoft"})
-    print(f'Tipo de clase -> {type(company)}')
-    if type(company) is Http404:
-        print("El error es 404")
-    return HttpResponse('Hola')
+    response = createCompanies(
+        [
+            {'name': 'Telecom'},
+            {'name': 'Telecentro'},
+            {'name': 'Riot Games'}
+        ]
+    )
+    print(type(response))
+    if response is True:
+        print('La respuesta es verdadera')
+    elif isinstance(response, AttributeError):
+        print('Error AttributeError')
+    elif isinstance(response, Exception):
+        print('No se pudo crear la compania')
+        
+    print('Se finalizo la prueba')
+    return HttpResponse('Esta funcionando correctamento')
 
