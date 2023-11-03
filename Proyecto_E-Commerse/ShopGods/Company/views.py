@@ -49,6 +49,8 @@ def createCompanies(companies):
 
 def updateCompany(id, company):
     
+    
+    
     return
 
 # Cristian - Funcion que borra una fila por id
