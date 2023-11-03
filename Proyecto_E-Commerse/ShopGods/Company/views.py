@@ -40,34 +40,32 @@ def createCompany(company_param):
 def createCompanies(companies):
     try:
         company_list = []
-        for companie in companies:
-            company_list.append(Company(name=companie["name"]))
+        for company in companies:
+            company_list.append(Company(name=company["name"]))
         Company.objects.bulk_create(company_list)
         return True
     except Exception as e:
         return e
 
-def updateCompany(id, company):
-    
-    return
+def updateCompany(id, company_param):
+    try:
+        company = getCompanyById(id)
+        company.name = company_param["name"]
+        company.save()
+        return True
+    except Exception as e:
+        return e
 
-# Cristian - Funcion que borra una fila por id
 def deleteCompanyById(id: int):
     try:
-        company = get_object_or_404(Company, id=id)
+        company = getCompanyById(id)
         company.delete()
         return True
     except Exception as e:
         return e
 
 def test(request):
-    response = createCompanies(
-        [
-            {'name': 'Telecom'},
-            {'name': 'Telecentro'},
-            {'name': 'Riot Games'}
-        ]
-    )
+    response = updateCompany(3,{'name':'Fravega'})
     print(type(response))
     if response is True:
         print('La respuesta es verdadera')
