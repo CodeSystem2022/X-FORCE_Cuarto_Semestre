@@ -3,8 +3,8 @@
 
 ---
 
-### *Abrió:* Lunes, 28 de Agosto de 2023, 18:00
-### *Cierra:* Viernes, 1 de Septiembre de 2023, 23:59
+### *Abrió:* Lunes 28 de Agosto de 2023, 18:00
+### *Cierra:* Viernes 1 de Septiembre de 2023, 23:59
 
 ---
 
