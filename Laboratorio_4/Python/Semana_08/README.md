@@ -3,8 +3,8 @@
 
 ---
 
-### *Abrió:* Lunes, 2 de Octubre de 2023, 18:00
-### *Cierra:* Viernes, 6 de Octubre de 2023, 23:59
+### *Abrió:* Lunes 2 de Octubre de 2023, 18:00
+### *Cierra:* Viernes 6 de Octubre de 2023, 23:59
 
 ---
 
