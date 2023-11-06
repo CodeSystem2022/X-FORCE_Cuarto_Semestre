@@ -5,8 +5,7 @@ from Product.models import Product
 class Purchases(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     purchases_date = models.DateTimeField(auto_now_add=True)
-    card_data = models.TextField(null=True, blank=True)
-    product = models.ManyToManyField(Product, through='PurchaseProduct')
+    products = models.ManyToManyField(Product, through='PurchaseProduct')
     
     def __str__(self):
         return f'{self.purchases_date} {self.user}'
