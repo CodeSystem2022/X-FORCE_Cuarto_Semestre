@@ -17,6 +17,9 @@ def getPurchasesByIdOfBuyer(id_buyer, amount_per_page: int = 10, actual_page: in
         return products
     except Exception as e:
         return e
+    
+def getPurchasesByIdSaler():
+    return
 
 def createPurchase(purchase_param):
     try:
