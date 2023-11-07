@@ -44,19 +44,19 @@
 
 Aquí están los comandos para eliminar errores:
 
-# Crear entorno virtual con el nombre venv
+### Crear entorno virtual con el nombre venv
 
 python3 -m venv venv
 
-# Activar entorno virtual
+### Activar entorno virtual
 
 source venv/bin/activate
 
-# pip freeze para verificar que no ha nada instalado aún
+### pip freeze para verificar que no ha nada instalado aún
 
 pip3 freeze
 
-# Instalar 
+### Instalar 
 
 Antes de instalar Pillow(se instala con matplotlib), 
 
@@ -66,7 +66,7 @@ $ sudo apt-get install python-dev python-setuptools
 
 $ sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 
-# pip freeze para verificar lo instalado solo en el entorno virtual
+### pip freeze para verificar lo instalado solo en el entorno virtual
 
 pip3 freeze
 
