@@ -187,16 +187,16 @@ def test(request):
     
     # Se prueba obtener las compras de un comprador
     
-    purchases = getPurchasesByUsernameOfBuyer(username='pedrocomprador', actual_page=1, amount_per_page=100)
-    print(purchases)
-    print(purchases[0].id)
-    purchaseProducts = getPurchaseProductsByIdPurchase(purchases[0].id)
-    print(purchaseProducts)
-    for item in purchaseProducts:
-        print(item.product.name)
-        items = getItemByIdProductAndIdPurchase(id_product=item.product.id, id_purchase=item.purchases.id, type=item.product.type)
-        for i in items:
-            print(i)
+    # purchases = getPurchasesByUsernameOfBuyer(username='pedrocomprador', actual_page=1, amount_per_page=100)
+    # print(purchases)
+    # print(purchases[0].id)
+    # purchaseProducts = getPurchaseProductsByIdPurchase(purchases[0].id)
+    # print(purchaseProducts)
+    # for item in purchaseProducts:
+    #     print(item.product.name)
+    #     items = getItemByIdProductAndIdPurchase(id_product=item.product.id, id_purchase=item.purchases.id, type=item.product.type)
+    #     for i in items:
+    #         print(i)
     # obtener el item donde el id product == a x y la compra sea igual a x
     
     return HttpResponse('Proceso finalizado')
