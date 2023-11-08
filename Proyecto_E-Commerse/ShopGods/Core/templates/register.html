@@ -1,0 +1,62 @@
+{% extends "./templateSingular.html" %}
+
+
+{% block body %}
+<section class="container forms">
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-portada"></div> 
+    </section>
+    <div class="form login">
+        <div class="form-content">
+            <h1 class="log">Registrarse</h1>
+                <form action="#">
+                    <div class="field input-field">
+                        <input type="text" placeholder="Nombre de usuario" class="input" style="left: -10px;">
+                    </div>
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" class="input" style="left: -10px;">
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" placeholder="Contraseña" class="password" style="left: -10px;">
+                        <i class='bx bx-hide eye-icon' ></i>
+                    </div>
+
+                    <div class="field">
+                        <button>Entrar</button>
+                    </div>
+
+                    <div class="form-link">
+                        <span>Ya tengo una cuenta:<a href="{% url 'login' %}" class="link singup-link"> Loguearse</a></span>
+                    </div>
+                </form>
+        </div>
+    </div>
+    
+    <div class="form signup">
+        <div class="form-content">
+            <h1 class="log">Registrarse</h1>
+                <form action="#">
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" class="input">
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" placeholder="Contraseña" class="password">
+                        <i class='bx bx-hide eye-icon' ></i>
+                    </div>
+                    <div class="field input-field">
+                        <input type="password" placeholder="Confirmar contraseña" class="password">
+                        <i class='bx bx-hide eye-icon' ></i>
+                    </div>
+
+                    <div class="field button-field">
+                        <button>Entrar</button>
+                    </div>
+
+                    <div class="form-link">
+                        <span>¿Tiene una cuenta?<a href="#" class="link singup-link"> Iniciar sesion</a></span>
+                    </div>
+                </form>
+        </div>
+    </div>
+</section>
+{%endblock%}
