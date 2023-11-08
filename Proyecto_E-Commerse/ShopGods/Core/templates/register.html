@@ -9,20 +9,20 @@
     <div class="form login">
         <div class="form-content">
             <h1 class="log">Registrarse</h1>
-                <form action="#">
+                <form action="/addUser/" method="POST"> {% csrf_token %}
                     <div class="field input-field">
-                        <input type="text" placeholder="Nombre de usuario" class="input" style="left: -10px;">
+                        <input type="text" placeholder="Nombre de usuario" name="txtname" class="input" style="left: -10px;">
                     </div>
                     <div class="field input-field">
-                        <input type="email" placeholder="Email" class="input" style="left: -10px;">
+                        <input type="email" placeholder="Email" class="input" name="txtmail" style="left: -10px;">
                     </div>
                     <div class="field input-field">
-                        <input type="password" placeholder="Contraseña" class="password" style="left: -10px;">
+                        <input type="password" placeholder="Contraseña" name="txtpassword" class="password" style="left: -10px;">
                         <i class='bx bx-hide eye-icon' ></i>
                     </div>
 
                     <div class="field">
-                        <button>Entrar</button>
+                        <button type="submit">Registrarse</button>
                     </div>
 
                     <div class="form-link">

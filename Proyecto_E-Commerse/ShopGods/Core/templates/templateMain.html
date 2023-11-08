@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="nav-right nav-block">
-                <li class="nav-link2"><a href="/Mis Productos">Mis Productos</a></li>
+                <li class="nav-link2"><a href="{% url 'myProducts' %}">Mis Productos</a></li>
                 <li class="nav-link2 "><a href="/Carrito">Carrito</a></li>
                 </div>
                 
@@ -116,8 +116,9 @@
 
         </div>
         
-        
+        <input type="hidden" id="dayNightBoolean" value="{{my_user.dark_mode}}">
     </footer>
-    <script type="text/javascript" src='{%static "js/Day_Night_Button.js"%}'></script>
+    <script type="text/javascript" src='{%static "js/Day_Night_Button.js" %}'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

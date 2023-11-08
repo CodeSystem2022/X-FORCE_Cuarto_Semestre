@@ -16,6 +16,7 @@ SECRET_KEY = 'django-insecure-9iy)hl-p6o)(fs=og00l9-at+_m5gv581$@d@ny@l=-sbz8-ry
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# "192.168.1.12", Tierra nativa 2
 
 
 # Application definition

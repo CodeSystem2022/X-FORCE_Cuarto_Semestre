@@ -1,10 +1,28 @@
+const boolean = document.querySelector("#dayNightBoolean")
 const btn = document.querySelector('.btn-neon-black');
+const slider = document.querySelector('#nightDaySlider');
 const img1 = document.querySelector('.fa-solid');
 const img2 = document.querySelector('.fa-solid');
 let isClicked = false;
 
+
+if (boolean.value == "True"){
+    CambiarColor()
+    sliderFunction1()
+}
+
+
+
 btn.addEventListener('click', () => {
-    
+    CambiarColor()
+});
+slider.addEventListener('click', () => {
+    CambiarColor();
+});
+
+
+
+function CambiarColor(){
     if (!isClicked) {
         // Cambio de imagen nocturno
         img1.classList.add('fa-sun');
@@ -33,6 +51,7 @@ btn.addEventListener('click', () => {
 
         document.documentElement.style.setProperty('--FondoBotonPerfil', '#1c1c1c');
         document.documentElement.style.setProperty('--SombrasPerfil', '#d4af376c');
+        sliderFunction1()
     } else {
         // Cambio de imagen diurno
         img1.classList.remove('fa-moon');
@@ -48,7 +67,7 @@ btn.addEventListener('click', () => {
         document.documentElement.style.setProperty('--FondoBody', '#ffffff');
         document.documentElement.style.setProperty('--FondoPerfil', '#ffffff');
         document.documentElement.style.setProperty('--FondoAvatar', ' #edf0f5');
-        document.documentElement.style.setProperty('--FondoBorde', ' #ffffff');
+        document.documentElement.style.setProperty('--FondoBorde', ' #CACACA');
         document.documentElement.style.setProperty('--SombraPerfil', 'rgb(255, 229, 209)');
         document.documentElement.style.setProperty('--ColorPortada1', 'rgb(252, 185, 185)');
         document.documentElement.style.setProperty('--ColorPortada2', 'rgb(203, 253, 174)');
@@ -61,9 +80,18 @@ btn.addEventListener('click', () => {
         document.documentElement.style.setProperty('--FondoBotonPerfil', '#edf0f5');
         document.documentElement.style.setProperty('--SombrasPerfil', '#272525a7');
         img2.style.color = '#7d1fa8';
+        sliderFunction2()
     }
     isClicked = !isClicked;
-});
+}
 
-
---FondoBody
+function sliderFunction1(){
+    if (slider){
+        slider.checked = true;
+    }
+}
+function sliderFunction2(){
+    if (slider){
+        slider.checked = false;
+    }
+}

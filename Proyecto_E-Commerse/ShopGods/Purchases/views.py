@@ -34,7 +34,6 @@ def getPurchaseProductsByIdPurchase(id_purchase: int):
 def getPurchasesByIdSaler():
     return
 
-# Falta preguntar si hay stock
 def createPurchase(username: str):
     try:
         # Se obtiene el usuario

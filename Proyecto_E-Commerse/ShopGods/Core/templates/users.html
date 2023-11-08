@@ -4,25 +4,33 @@
 {% block body %}
 <section class="seccion-perfil-usuario">
     <div class="perfil-usuario-portada">
-        <div class="perfil-usuario-avatar">
-            <img src="" class="img-avatar">
+        <div class="perfil-usuario-avatar" style="background-image: url('{{ my_user.profile_photo}}');">
         </div>
     </div> 
-    
     <div class="perfil-usuario-body" style="top: 30px;">
         <div class="perfil-usuario-footer">
             <ul class="lista-datos">
-                <li></i> Nombre: </li>
-                <li></i> Correo: </li>
-                <li></i> Contraseña: </li>
+                <li> Username: {{ user.username }} </li>
+                <li> Correo: {{ user.email }} </li>
+                
+                <li> CBU: {{my_user.cbu}}</li>
+                
+                <li style="margin-top:-60px;"><form action="/darkMode/" method="POST">{% csrf_token %} Modo oscuro: <label class="switch" >
+                                            <input type="checkbox" id="nightDaySlider" name="nightDaySlider">
+                                            <span class="slider "></span>
+                                      </label>
+                                      <button type="submit" class="redirection-button">guardar </button>
+                </form></li>
             </ul>
             
         </div>
         <div class="footer-form">
             <a class="redirection-button" href="{% url 'editUser' %}">Editar Datos</a>
-            <a class="redirection-button">Eliminar Cuenta</a>
+
+            <a class="redirection-button delete" href="{% url 'deleteUser' %}">Eliminar Cuenta</a>
         </div>
     </div>
     <div class="espaciador"></div>
+    
 </section>
 {%endblock%}

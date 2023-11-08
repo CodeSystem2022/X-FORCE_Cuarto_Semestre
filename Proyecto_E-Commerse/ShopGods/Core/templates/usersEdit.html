@@ -4,24 +4,27 @@
 {% block body %}
 <section class="seccion-perfil-usuario">
     <div class="perfil-usuario-portada">
-        <div class="perfil-usuario-avatar">
-            <img src="" class="img-avatar">
-        </div>
-    </div> 
-    
-    <div class="perfil-usuario-body" style="top: 30px;">
-        <div class="perfil-usuario-footer">
-            <ul class="lista-inputs">
-                <li><input class= "input" type="text" placeholder="Nombre"></li>
-                <li><input class= "input" type="mail" placeholder="Correo"></li>
-                <li><input class= "input" type="password" placeholder="Contraseña"></li>
-                <li><input class= "input" type="password" placeholder="Confirmar contraseña"></li>
-            </ul>
+        <div class="perfil-usuario-avatar" style="background-image: url('{{ my_user.profile_photo}}');">
             
         </div>
-        <div class="footer-form">
-            <a class="redirection-button">Registrarse</a>
-        </div>
+    </div>
+    <div class="perfil-usuario-body" style="top: 30px;">
+        <form method="POST" action="/modifyUser/">{% csrf_token %}
+            <div class="perfil-usuario-footer">
+                <ul class="lista-inputs">
+                    <li><input class="input" type="text" placeholder="Foto de perfil (internet)" value="{{my_user.profile_photo}}" name="txtphoto"></li>
+                    <li><input class= "input" type="text" placeholder="Nombre de usuario" value="{{user.username}}" name="txtusername"></li>
+                    <li><input class= "input" type="mail" placeholder="Correo" value="{{user.email}}" name="txtemail"></li>
+                    <li><input class= "input" type="password" placeholder="Ingrese contraseña" name="txtpassword"></li>
+                    <li><input class= "input" type="password" placeholder="Confirmar contraseña" name="txtrepassword"></li>
+                    <li><input class= "input" type="num" placeholder="CBU" value="{{my_user.cbu}}" name="txtcbu"></li>
+                </ul>
+                
+            </div>
+            <div class="footer-form">
+                <button type="submit" class="redirection-button">Editar</button>
+            </div>
+        </form>
     </div>
     <div class="espaciador"></div>
 </section>

@@ -15,7 +15,7 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     --SombraNeon: #1c1c1c;
     --FondoBody: #ffffff; 
     --FondoAvatar: #edf0f5;
-    --FondoBorde: #ffffff;
+    --FondoBorde: #CACACA;
     --Fondobordes: #CACACA;
     --ColorPortada1: rgb(252, 185, 185);
     --ColorPortada2: rgb(203, 253, 174);
@@ -220,13 +220,14 @@ align-items: center;
     height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     column-gap: 30px;
 }
 .form{
     position: absolute;
-    max-width: 430px;
+    max-width: 150vh;
     width: 100%;
     padding: 30px;
     border-radius: 6px;
@@ -236,10 +237,6 @@ align-items: center;
 .form.signup{
     opacity: 0;
     pointer-events: none;
-}
-.forms.show-signup .form.signup{
-    opacity: 1;
-    pointer-events: auto;
 }
 .log{
     font-size: 28px;
@@ -376,7 +373,9 @@ form{
     z-index: 0;
 
     border: 7px solid var(--FondoBorde);
-    background-color: var(--FondoAvatar);
+    background-size: cover;
+    background-position: 50%;
+    overflow: hidden;
     border-radius: 50%;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
 
@@ -387,6 +386,13 @@ form{
     display: flex;
     width: 100%;
     margin-top: 30px;
+}
+.img-avatar-edit{
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    cursor: pointer;
 }
 
 /*
@@ -459,6 +465,7 @@ form{
     border-radius: 10px;
     padding: 7px;
     transition: all 0.5s ease;
+    background-color: var(--FondoBotonPerfil);
 
 }
 
@@ -737,9 +744,10 @@ aside li{
 
 .espaciador{
     position: relative;
+    display:inline;
     width: 10px;
     height: 10px;
-    top: 100px;
+    top: 300px;
 }
 
 /*Tablas del main*/
@@ -767,13 +775,13 @@ aside li{
     width: 100%;
     
     margin: 15px;
-    padding: 15px;
-    
-    background-color: var(--Fondo);
-    border-radius: 10px;
-    -webkit-box-shadow: 9px -6px 8px -8px var(--ColorTerciario);
+    padding: 30px;
+    border-radius: 6px;
+    background-color: var(--FondoBody);
+    box-shadow: 0px 1px 20px -9px rgba(0,0,0,0.75);
+    /* -webkit-box-shadow: 9px -6px 8px -8px var(--ColorTerciario);
     -moz-box-shadow: 9px -6px 8px -8px var(--ColorTerciario);
-    box-shadow: 9px -6px 8px -8px var(--ColorTerciario);
+    box-shadow: 9px -6px 8px -8px var(--ColorTerciario); */
 
 }
 .table-element{
@@ -783,6 +791,7 @@ aside li{
     width: 85%;
 
     margin-left: 20px;
+    
 
 }
 .table-img{
@@ -813,6 +822,7 @@ aside li{
 .input{
     
     height: 30px;
+    width: 100%;
     font-size: 15px;
     margin: 10px;
     position: relative;
@@ -824,4 +834,53 @@ aside li{
 .input:focus{
     outline: none;
     border: 1px solid var(--Fondobordes);
+}
+
+
+
+
+.switch{
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+
+    height: 25px;
+    width: 50px;
+
+    left: 15px;
+
+    
+}
+.slider{
+    position: absolute;
+    
+    height: 25px;
+    width: 50px;
+    top: 0;
+    left: -15px;
+    right: 0;
+    bottom: 0;
+
+    background-color: var(--FondoBorde);
+    border-radius: 20px;
+    cursor: pointer;
+    
+}
+.slider::before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 50%;
+
+    background-color: var(--ColorTerciario);
+    border-radius: 20px;
+    transition: .2s;
+}
+.slider:hover::before {
+    background: var(--SombraNeon);
+    box-shadow: 0 0 15px var(--SombraNeon), 0 0 45px var(--SombraNeon), 0 0 85px var(--SombraNeon);
+}
+
+input:checked + .slider::before{
+    transform: translate(25px);
 }
