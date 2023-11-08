@@ -26,11 +26,6 @@ btn.addEventListener('click', () => {
         document.documentElement.style.setProperty('--ColorPortada1', '#2A132C');
         document.documentElement.style.setProperty('--ColorPortada2', '#0D1828');
         document.documentElement.style.setProperty('--ColorPortada3', '#1B0303');
-
-        document.documentElement.style.setProperty('--ColorPortada-1', 'rgb(3, 70, 70)');
-        document.documentElement.style.setProperty('--ColorPortada-2', 'rgb(52, 2, 81)');
-        document.documentElement.style.setProperty('--ColorPortada-3', 'rgb(0, 35, 125)');
-
         document.documentElement.style.setProperty('--FondoBotonPerfil', '#1c1c1c');
         document.documentElement.style.setProperty('--SombrasPerfil', '#d4af376c');
     } else {
@@ -53,11 +48,6 @@ btn.addEventListener('click', () => {
         document.documentElement.style.setProperty('--ColorPortada1', 'rgb(252, 185, 185)');
         document.documentElement.style.setProperty('--ColorPortada2', 'rgb(203, 253, 174)');
         document.documentElement.style.setProperty('--ColorPortada3', 'rgb(255, 220, 130)');
-
-        document.documentElement.style.setProperty('--ColorPortada-1', 'rgb(255, 220, 130)');
-        document.documentElement.style.setProperty('--ColorPortada-2', 'rgb(120, 228, 255)');
-        document.documentElement.style.setProperty('--ColorPortada-3', 'rgb(252, 185, 185)');
-
         document.documentElement.style.setProperty('--FondoBotonPerfil', '#edf0f5');
         document.documentElement.style.setProperty('--SombrasPerfil', '#272525a7');
         img2.style.color = '#7d1fa8';
