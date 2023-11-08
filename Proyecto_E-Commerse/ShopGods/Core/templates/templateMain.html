@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <!-- Hipervinculos a otras paginas -->
     <script src="https://kit.fontawesome.com/823f508539.js" crossorigin="anonymous"></script><!--AwesomeFonts-->
-    <script src="https://kit.fontawesome.com/44a853ca4e.js" crossorigin="anónimo"></script><!--AwesomeFonts-->
+    <script src="https://kit.fontawesome.com/44a853ca4e.js" crossorigin="anonymous"></script><!--AwesomeFonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com"><!--GoogleFonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!--GoogleFonts-->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet"><!--Titulos-->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"><!--Cuerpos-->
-    <link rel="icon" type="image/x-icon" href="/imgs/bolt-fav.png">
+    <link rel="icon" type="image/x-icon" href="{% static 'imgs/bolt-fav.png' %}">
 
     <!-- lala -->
 </head>
@@ -22,11 +23,11 @@
         <nav class="nav-bar">
             <ul class="nav-ul nav-block">
                 <div class="nav-left nav-block">
-                <li class="nav-link"><a href="/Usuario">Usuario</a></li>    
+                <li class="nav-link"><a href="{% url 'user' %}">Usuario</a></li>    
                 </div>
                 
                 <div class="nav-center nav-block">
-                <h1 ><a href="/Shop Gods" class="titulo">Shop Gods</a></h1>
+                <h1 ><a href="{% url 'main' %}" class="titulo">Shop Gods</a></h1>
                 </div>
 
                 <div class="nav-right nav-block">
@@ -74,38 +75,8 @@
       </ul></div> -->
     
     </aside>
-
-    <div class="content">
-        <table>
-            <tbody>
-                <tr class="table-content">
-                    <td>img</td>
-                    <td class="table-element">
-                        <div>Nombre</div>
-                        <div>Autor</div>
-                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                    </td>
-                </tr>
-                <tr class="table-content">
-                    <td class="table-img">img</td>
-                    <td class="table-element">
-                        <div>Nombre</div>
-                        <div>Autor</div>
-                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                    </td>
-                </tr>
-                <tr class="table-content">
-                    <td class="table-img">img</td>
-                    <td class="table-element">
-                        <div>Nombre</div>
-                        <div>Autor</div>
-                        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                    </td>
-                </tr>
-                
-            </tbody>
-        </table>
-    </div>
+    {% block body %}
+    {% endblock %}
 
 
     <footer>
@@ -131,7 +102,7 @@
         <div class="box__copyright">
             <div class="box__footer copy">
                 <div class="logo">
-                    <img src="imgs/Logo.png" alt="">
+                    <img src="{%static 'img/Logo.png'}" alt="">
                 </div>
             </div>
             
@@ -147,6 +118,6 @@
         
         
     </footer>
-    <script type="text/javascript" src="js.js"></script>
+    <script type="text/javascript" src='{%static "js/Day_Night_Button.js"%}'></script>
 </body>
 </html>
