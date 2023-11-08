@@ -15,7 +15,7 @@ class PurchaseProduct(models.Model):
     purchases = models.ForeignKey(Purchases, on_delete=models.CASCADE, blank=False, null=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=False, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False)
-    quantity = models.IntegerField(blank=False, null=False)
+    amount = models.IntegerField(blank=False, null=False)
     destination_mail = models.EmailField(blank=True, null=True)
     
     def __str__(self):

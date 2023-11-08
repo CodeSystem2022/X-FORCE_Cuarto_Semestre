@@ -8,6 +8,7 @@ class Product(models.Model):
     stock = models.IntegerField(blank=True, default=0)
     sales_quantity = models.IntegerField(blank=True, null=True)
     pay = models.BooleanField(default=False)
+    type = models.CharField(max_length=50, blank=False, null=False)
         
     def __str__(self):
         return f'{self.id} - {self.name}'

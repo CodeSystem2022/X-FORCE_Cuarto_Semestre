@@ -70,10 +70,27 @@ def getItemsByProductId(id_product: int, type: str, bought: bool = None, amount_
     except Exception as e:
         return e
 
+# obtener el item donde el id product == a x y la compra sea igual a x
+def getItemByIdProductAndIdPurchase(id_product: int, id_purchase: int, type: str):
+    try:
+        items = None
+        condition = Q(product__id=id_product) & Q(puschase__id=id_purchase)
+        if type == 'key':
+            items = Key.objects.filter(condition)
+            return items
+        if type == 'mail':
+            items = Mail.objects.filter(condition)
+            return items
+        if type == 'others':
+            items = Others.objects.filter(condition)
+            return items
+    except Exception as e:
+        return e
+
 def createProduct(product_param):
     try:
         user = getUserByUsername(product_param["user"])
-        product = Product(user=user, name=product_param["name"], price=product_param["price"]) 
+        product = Product(user=user, name=product_param["name"], price=product_param["price"], type=product_param["type"]) 
         product.save()
         return product
     except Exception as e:
@@ -162,6 +179,17 @@ def deleteItemById(id: int, type: str):
             return True
         else:
             return False
+    except Exception as e:
+        return e
+    
+# Funcion que pregunta si hay stock
+def thereIsStock(product, amount):
+    try:
+        stock = {
+            'stock': amount <= product.stock,
+            'amount': product.stock
+        }
+        return stock
     except Exception as e:
         return e
 
@@ -284,10 +312,11 @@ def test(request):
     # Se prueba que cuando se quita un item de un producto se actualice el stock del producto
     # result = deleteItemById(id=2, type='mail')
     # print('Item borrado?', result)
-    
-    # print('Se finalizo la prueba')
-    # return HttpResponse('Esta funcionando correctamento')
     # Pruebas funcionan correctamente
+    
+    print('Se finalizo la prueba')
+    return HttpResponse('Esta funcionando correctamento')
+
 
 
 

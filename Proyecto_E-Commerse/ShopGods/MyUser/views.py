@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 
-def getUserByUsername(username: int):
+def getUserByUsername(username: str):
     try:
         user = get_object_or_404(User,username=username)
         return user

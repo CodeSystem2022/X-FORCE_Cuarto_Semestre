@@ -1,37 +1,99 @@
-from .models import ShoppingCart
-from Product.views import getProductById
+from .models import ShoppingCart, ShoppingCartProduct
+from Product.views import getProductById, thereIsStock
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
+from MyUser.views import getUserByUsername
+from django.http import HttpResponse
 
-def getShoppingCartByUserId(id_user: int):
+def getShoppingCartByUsername(username: str):
     try:
-        user = get_object_or_404(User, id=id) # Modificar por metodo creado en user
+        user = getUserByUsername(username=username) # Modificar por metodo creado en user
         shoppingCart = get_object_or_404(ShoppingCart,user=user)
         return shoppingCart
     except Exception as e:
         return e
+    
+def getProductsOfShoppingCart(username: str):
+    try:
+        shoppingCartProducts = ShoppingCartProduct.objects.select_related('shoppingCart__user').filter(shoppingCart__user__username=username)
+        return shoppingCartProducts
+    except Exception as e:
+        return e
 
-def createShoppingCart(shoppingCart):
+# Cada vez que se realiza una compra se debe crear un carrito pero antes borrarlo
+def createShoppingCart(username):
     try:
-        shoppingCart = ShoppingCart(user=shoppingCart['user'])
-        shoppingCart.save()
-        return True
+        user = getUserByUsername(username=username)
+        if ShoppingCart.objects.filter(user=user).count() == 0:
+            shoppingCart = ShoppingCart(user=user)
+            shoppingCart.save()
+            return True
+        else:
+            return False
     except Exception as e:
         return e
     
-def addProductToShoppingCart(id_user: int, id_product: int):
+def addProductToShoppingCart(username: str, product_param: any):
     try:
-        shoppingCart = getShoppingCartByUserId(id_user)
-        product = getProductById(id_product)
-        shoppingCart.product.set(product)
-        shoppingCart
-        return True
+        product = getProductById(product_param['id'])
+        # Preguntar si es el mismo, si es el mismo sumar amount
+        shoppingCartProduct = ShoppingCartProduct.objects.filter(product__id=product_param['id'])[:1]
+        if shoppingCartProduct:
+            print('Existe')
+            print(shoppingCartProduct[0])
+            product_param['amount'] = product_param['amount'] + shoppingCartProduct[0].amount
+            thereIs = thereIsStock(product=product , amount=product_param['amount'])
+            if thereIs['stock'] == True:
+                shoppingCartProduct[0].amount = product_param['amount']
+                shoppingCartProduct[0].save()
+                return True
+            if thereIs['stock'] == False:
+                return False
+        thereIs = thereIsStock(product=product , amount=product_param['amount'])
+        if thereIs['stock'] == True:
+            shoppingCart = getShoppingCartByUsername(username)
+            shoppingCartProduct = ShoppingCartProduct(shoppingCart=shoppingCart, product=product, amount=product_param['amount'])
+            shoppingCartProduct.save()
+            return True
+        if thereIs['stock'] == False:
+            return False
     except Exception as e:
         return e
     
-def deteleShoppingCart(id_user: int):
+def deteleShoppingCart(username: str):
     try:
-        shoppingCart = getProductById(id_user)
-        shoppingCart.delete()
+        response = ShoppingCart.objects.filter(user__username=username).delete()
+        if response[0] > 0:    
+            return True
+        if response[0] == 0:
+            return False
     except Exception as e:
         return e
+    
+
+
+def test(request):
+    print('Se comienza la prueba')
+    
+    # Se prueba la creacion de un carrito
+    # result = createShoppingCart('jeroalvarez1')
+    # print('result', result)
+    # La prueba funciona correctamente
+    
+    # Se prueba la agregacion de productos al carrito
+    # response = addProductToShoppingCart(username='jeroalvarez1', product_param={'id': 2, 'amount': 2})
+    # print(response)
+    # La prueba funciona correctamente
+    
+    # Se prueba la funcion para listar los procutos de un carrito de compras
+    # response = getProductsOfShoppingCart('jeroalvarez1')
+    # print(response)
+    # for item in response:
+    #     print(item.product.id)
+    # Fucniona correctamente
+    
+    # Prueba borrar un shoppingCart
+    # response = deteleShoppingCart('jeroalvarez1')
+    # print(response)
+    
+    print('Se finalizo la prueba')
+    return HttpResponse('Esta funcionando correctamento')
