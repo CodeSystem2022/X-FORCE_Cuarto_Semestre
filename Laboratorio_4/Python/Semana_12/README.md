@@ -4,7 +4,7 @@
 ---
 
 ### *Abrió:* Lunes, 30 de Octubre de 2023, 18:00
-### *Cierra:* Viernes, 3 de Octubre de 2023, 23:59
+### *Cierra:* Viernes, 3 de Noviembre de 2023, 23:59
 
 ---
 
