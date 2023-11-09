@@ -15,8 +15,8 @@ SECRET_KEY = 'django-insecure-9iy)hl-p6o)(fs=og00l9-at+_m5gv581$@d@ny@l=-sbz8-ry
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.1.12",]
-# "192.168.1.12", Tierra nativa 2
+ALLOWED_HOSTS = []
+#    "192.168.1.12", "192.168.0.100",            Tierra nativa 2,    wifi-casa  ,
 
 
 # Application definition

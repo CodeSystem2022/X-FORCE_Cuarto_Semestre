@@ -9,12 +9,13 @@
         <tbody>
             {% for product in products %}
             <tr class="table-content ">
-               <td class="table-img"><a href="{% url 'user' %}"><img class="img-main" src="../{{product.photo}}"/></td>
+               <td class="table-img"><a href="{% url 'product' product.id %}"><img class="img-main" src="../{{product.photo}}"/></td>
                 <td class="table-element">
-                    <div><a class="titulo" href="{% url 'user' %}">{{product.name}}</a></div>
-                    <div>{{product.description}}</div>
-                    <div>$ {{product.price}}</div>
-                    <div>Tipo {{product.type}}</div>
+                    <div><a class="titulo" href="{% url 'product' product.id %}">{{product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio:  ${{product.price}}</div>
+                    <div>Tipo: {{product.type}}</div>
                     <div>Stock: {{product.stock}}</div>
                     <a href="{% url 'myProductEdit' product.id%}">editar</a>
                 </td>
@@ -22,6 +23,6 @@
             {% endfor %}            
         </tbody>
     </table>
-    <div class="espaciador"></div>
+    <div class="espaciador" style="position: relative; top: 40vh;">a</div>
 </div>
 {% endblock %}

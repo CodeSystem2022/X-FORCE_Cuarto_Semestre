@@ -37,6 +37,7 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif; 
     color: var(--ColorPrimario);
+    box-sizing: border-box;
 
 }
 
@@ -52,7 +53,12 @@ font-family: 'Playfair Display SC', serif;   (Títulos)
     background-color: var(--ColorSecundario);
     border-radius: 20px;
 }
-
+.body-content{
+    position: absolute;
+    width: 100vh;
+    height: auto;
+    margin-bottom: 70px;
+}
 body{
     position: absolute;
     display: flex;
@@ -63,6 +69,7 @@ body{
 
     top: 0px;
     margin: 0px;
+    
 
     background: var(--FondoBody);
     transition: all 0.2s;
@@ -70,6 +77,7 @@ body{
 
 footer{
     position: fixed;
+    margin-top: 10px;
     bottom: 0px;
     left: 0%;
     width: 100%;
@@ -84,7 +92,15 @@ footer{
     
 }
 
-
+a:link { text-decoration: none;
+    color: --ColorPrimario;
+}
+a:visited {
+text-decoration: none;
+}
+a:hover {
+    color: var(--ColorTerciario);
+}
 
 
 
@@ -113,19 +129,8 @@ header{
     -moz-box-shadow: 9px -6px 28px -3px var(--Sombras);
     box-shadow: 9px -6px 28px -3px var(--Sombras);
 }
-
-a:link { text-decoration: none;
-    color: --ColorPrimario;
-}
-a:visited {
-text-decoration: none;
-}
-a:hover {
-    color: var(--ColorTerciario);
-    
-  }
 .nav-bar{
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -143,43 +148,27 @@ align-items: center;
 height: 70px;
 width: 100%;
 }
-.nav-block{
-    position: relative;
-    width: 33%;
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-}
-.nav-left{
+
+/* .nav-left{
+    left: 5vh;
     text-align: left;
 }
 .nav-right{
     text-align: right;
-}
+} */
 .nav-center{
-    display: block;
+    display: inline;
     text-align: center;
     align-items: center;
     align-content: center;
     
 }
-.nav-liank{
-    position: relative;
-    display: flex;
- 
-    margin-left: 35px;
-    
-}
-.nav-link2{
-    position: relative;
-    display: flex;
-    margin: 35px;
-}
 
 
 .titulo{
     font-family: 'Playfair Display SC', serif;
-
+    font-weight: 800;
+    font-size: 120%;
 }
 
 .nav-bar{
@@ -208,8 +197,9 @@ align-items: center;
 .nav-link{
     position: relative;
     display: flex;
-    margin: 35px;
-    margin-left: 35px;
+    margin: 5%;
+    white-space: nowrap;
+    
 }
 .nav-link2{
     position: relative;
@@ -218,6 +208,7 @@ align-items: center;
     margin-left: auto;
 }
 .container{
+    position: relative;
     height: 100vh;
     width: 100%;
     display: flex;
@@ -265,6 +256,7 @@ form{
     font-size: 16px;
     font-weight: 400;
     border-radius: 6px;
+    margin: 10px;
 }
 
 .field select,
@@ -556,7 +548,8 @@ textarea {
     display: none;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 100vh;
+    width: 100vh;
     margin: auto;
 }
 
@@ -755,11 +748,12 @@ aside li{
 
 
 .espaciador{
-    position: relative;
+    position: absolute;
     display:inline;
+    bottom: 0;
     width: 10px;
     height: 10px;
-    top: 300px;
+    top: 200px;
 }
 
 /*Tablas del main*/
@@ -830,6 +824,12 @@ aside li{
     width: 100%;
     
 }
+.lista-inputs li > div {
+    box-sizing: border-box;
+    width: 50vh;
+    margin: 0;
+}
+
 
 .input{
     height: 30px;

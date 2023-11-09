@@ -19,34 +19,27 @@
 
 </head>
 <body>
-
-    {% block body %} {% endblock %}
-    
-    
-
-
-
     <header> 
        
         <nav class="nav-bar">
             <ul class="nav-ul nav-block">
-                <div class="nav-left nav-block">
+                
                 <li class="nav-link"><a href="{% url 'user' %}">Usuario</a></li>    
-                </div>
+                <li class="nav-link"><a href="{% url 'user' %}">Historial</a></li>    
                 
-                <div class="nav-center nav-block">
-                <h1 ><a href="{% url 'main' %}" class="titulo">Shop Gods</a></h1>
-                </div>
-
-                <div class="nav-right nav-block">
-                <li class="nav-link2"><a href="{% url 'myProducts' %}">Mis Productos</a></li>
-                <li class="nav-link2 "><a href="/Carrito">Carrito</a></li>
-                </div>
+                <h1 ><a href="{% url 'main' %}" class="nav-link titulo">Shop Gods</a></h1>
                 
+                <li class="nav-link"><a href="{% url 'myProducts' %}">Mis Productos</a></li>
+                <li class="nav-link "><a href="{% url 'myShopCart' }">Carrito</a></li>
+                
+               
             </ul>
         </nav>
 
     </header>
+
+    {% block body %} {% endblock %}
+    
 
     <footer>
         
@@ -88,6 +81,7 @@
         <input type="hidden" id="dayNightBoolean" value="{{my_user.dark_mode}}">
         
     </footer>
+    <div class="espaciador"></div>
     
     <script type="text/javascript" src="{%static 'js/Day_Night_Button.js' %}"></script>
     <script type="text/javascript" src='{%static "js/Alerts.js" %}'></script>

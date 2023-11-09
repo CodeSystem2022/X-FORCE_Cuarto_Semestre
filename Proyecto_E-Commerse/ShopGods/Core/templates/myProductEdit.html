@@ -10,13 +10,15 @@
         <div class="form-content">
             <h1 class="log">Editar producto</h1>
                 <form action="/updateProductF/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                <input type="hidden" name="id_product" value="{{ product.id }}">
-                <div class="table-content">
+                    <input type="hidden" name="id_product" value="{{ product.id }}">
+                    <div class="table-content">
                     <div >
                         <input type="file" id="id_imagen" name="filephoto" class="" style="left: -10px;">
                         <div class="edit-img" style="background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
                     </div>
-                <div class="table-element">
+
+                    <div class="table-element">
+
                     <div class="field ">
                         <input type="text" placeholder="Nombre del producto" name="txtname" class="input" value="{{product.name}}" style="left: -10px;">
                     </div>
@@ -39,22 +41,34 @@
                         <i class='bx bx-hide eye-icon' ></i>
                     </div>
 
-                </div>
-                </div>
-                    <div class="field">
-                        <button type="submit">Agregar producto</button>
                     </div>
+                    </div>
+                    <div class="field">
+                        <button type="submit">Editar producto</button>
+                    </div>
+                    
                 </form>
+                <form action="/user/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <div class="field ">
+                        <input type="text" placeholder="Nuevo Item:" name="txtname" class="input" value="" style="left: -10px;">
+                    </div>
+                    <button type="submit" class="redirection-button" style="margin: 0;">Agregar</button>
+                </form>
+                <div class="field">
+                    <a class="delete" href="{% url 'deleteProduct' product.id %}"><button type="submit">Eliminar producto</button></a>
+                </div>
+
+
+                
         </div>
     </div>
     
                 
         </div>
     </div>
-<div class="container">
-<div class="espaciador"></div>
-</div>
+
 
 </section>
+<div class="espaciador" style="position: relative; top: 80vh;">a</div>
 
 {%endblock%}

@@ -16,7 +16,7 @@ urlpatterns = [
     path("EditUser/", views.editUser, name="editUser"),
     path('addUser/', views.addUser, name='addUser'),
     path("deleteUser/", views.deleteUser, name="deleteUser"),
-
+    path("User/",views.user, name="user"),
 
 #--------------------Referido a Productos----------------------------------------------#
 
@@ -26,12 +26,20 @@ urlpatterns = [
     path("updateProductF/", views.updateProductF, name="updateProductF"),
     path("myProductEdit/<int:id_product>/", views.myProductEdit, name="myProductEdit"),
     path("product/<int:id_product>/", views.product, name="product"),
+    path("deleteProduct/<int:id_product>/", views.deleteProduct, name="deleteProduct"),
 
+#--------------------Referido a carrito de compras----------------------------------------------#
+
+
+    path("MyShopCart/", views.myShopCart, name="myShopCart"),
+ #   path("addShopCart/", views.addShopCart, name="addShopCart"),
+ #   path("deleteShopCart/", views.deleteShopCart, name="deleteShopCart"),
+ #   path("payShopCart/", views.payShopCart, name="payShopCart"),
 
 
 
     path("Main/", views.main, name="main"),
-    path("User/",views.user, name="user"),
+
 
 
 #--------------------Otros programas----------------------------------------------#    

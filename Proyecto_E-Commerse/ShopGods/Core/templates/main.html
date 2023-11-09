@@ -25,9 +25,10 @@
                <td class="table-img"><a href="{% url 'product' product.id %}"><img class="img-main" src="../{{product.photo}}"/></td>
                 <td class="table-element">
                     <div><a class="titulo" href="{% url 'product' product.id %}">{{product.name}}</a></div>
-                    <div>{{product.description}}</div>
-                    <div>$ {{product.price}}</div>
-                    <div>Tipo {{product.type}}</div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio: ${{product.price}}</div>
+                    <div>Tipo: {{product.type}}</div>
                     <div>Stock: {{product.stock}}</div>
                 </td>
             </tr>
@@ -35,6 +36,7 @@
             
         </tbody>
     </table>
-    <div class="espaciador"></div>
+    <div class="espaciador" style="position: relative; top: 20vh;">a</div>
 </div>
+
 {% endblock %}

@@ -9,37 +9,34 @@
     <div class="form" style="top:30vh;">
         <div class="form-content">
             <h1 class="log">producto</h1>
-                <form action="/updateProductF/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
                 <div class="table-content">
                     <div >
-                        <input type="file" id="id_imagen" name="filephoto" class="" style="left: -10px;">
-                        <div class="edit-img" style="background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
+                        <div class="edit-img" style="width: 50vh;background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
                     </div>
                 <div class="table-element">
                     <div class="field ">{{product.name}}</div>
 
                     <div class="field">{{product.type}}</div>
 
-                    <div class="field ">{{product.description}}</div>
+                    <div class="field ">{{product.description|linebreaks}}</div>
                     
                     <div class="field ">{{product.price}}</div>
 
                 </div>
                 </div>
                     <div class="field">
-                        <button type="submit">Agregar producto</button>
+                        <button type="submit">Agregar al carrito</button>
                     </div>
-                </form>
         </div>
     </div>
     
                 
         </div>
     </div>
-<div class="container">
-<div class="espaciador"></div>
-</div>
+
+    <div class="espaciador" style="position: relative; top: 50vh;">a</div>
+
 
 </section>
 

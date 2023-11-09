@@ -12,12 +12,12 @@
         <form method="POST" action="/modifyUser/">{% csrf_token %}
             <div class="perfil-usuario-footer">
                 <ul class="lista-inputs">
-                    <li><input class="input" type="text" placeholder="Foto de perfil (internet)" value="{{my_user.profile_photo}}" name="txtphoto"></li>
-                    <li><input class= "input" type="text" placeholder="Nombre de usuario" value="{{user.username}}" name="txtusername"></li>
-                    <li><input class= "input" type="mail" placeholder="Correo" value="{{user.email}}" name="txtemail"></li>
-                    <li><input class= "input" type="password" placeholder="Ingrese contraseña" name="txtpassword"></li>
-                    <li><input class= "input" type="password" placeholder="Confirmar contraseña" name="txtrepassword"></li>
-                    <li><input class= "input" type="num" placeholder="CBU" value="{{my_user.cbu}}" name="txtcbu"></li>
+                    <li><div>Imagen (copiar direccion de imagen)</div><input class="input" type="text" placeholder="Pegue su direccion aquí" value="{{my_user.profile_photo}}" name="txtphoto"></li>
+                    <li><div>Nombre</div><input class= "input" type="text" placeholder="Nombre de usuario" value="{{user.username}}" name="txtusername"></li>
+                    <li><div>Mail</div><input class= "input" type="mail" placeholder="Correo" value="{{user.email}}" name="txtemail"></li>
+                    <li><div>Constraseña</div><input class= "input" type="password" placeholder="Ingrese contraseña" name="txtpassword"></li>
+                    <li><div>Confirmacion</div><input class= "input" type="password" placeholder="Confirmar contraseña" name="txtrepassword"></li>
+                    <li><div>CBU</div><input class= "input" type="num" placeholder="CBU" value="{{my_user.cbu}}" name="txtcbu"></li>
                 </ul>
                 
             </div>
@@ -26,6 +26,6 @@
             </div>
         </form>
     </div>
-    <div class="espaciador"></div>
 </section>
+<div class="espaciador" style="position: relative; top: 20vh;">a</div>
 {%endblock%}
