@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.http import JsonResponse
 
 from MyUser.views import createUser, login_access, getMyUserByUser, changeUser, deleteUserB, getUserByUsername
-from Product.views import getProductById
+from Product.views import getProductById, createProduct, getProductsByUser, getProducts, updateProduct
 
 # Create your views here.
 
@@ -58,9 +58,10 @@ def loginF(request):
 def main(request):
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
-    product = getProductById(6)
-    print(product.photo)
-    return render(request, "main.html", context={'user': user, 'my_user': my_user, 'product': product}) 
+    actual_page = request.GET.get('actual_page')
+    print('actual_page', actual_page)
+    products = getProducts(actual_page=int(actual_page) if actual_page else 1, amount_per_page=2, search='', username=user.username)
+    return render(request, "main.html", context={'user': user, 'my_user': my_user, 'products': products['products'], 'actual_page': products['actual_page'], 'page_amount': products['page_amount']}) 
 
 def user(request):
     #id = User.objects.get(id = iduser)
@@ -96,10 +97,54 @@ def deleteUser(request):
    return redirect("home")
         
 
-def myProducts (request):
+def myProducts(request):
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
-    return render(request, "myProducts.html", context={'user': user, 'my_user': my_user})
+    products = getProductsByUser(user=user)
+    return render(request, "myProducts.html", context={'user': user, 'my_user': my_user, 'products': products})
 
 def addProduct(request):
-    return render(request, "addProduct.html")
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    return render(request, "addProduct.html", context={'user': user, 'my_user': my_user})
+
+def createProductF(request):
+    product = {
+        'photo': request.FILES.get('filephoto'),
+        'name': request.POST.get("txtname"),
+        'type': request.POST.get("selecttype"),
+        'description': request.POST.get("txtdescription"),
+        'price': request.POST.get("numprice"),
+        'user': request.user.username
+    }
+    print(product)
+    product = createProduct(product)
+    print(product)
+    return redirect("myProducts")
+
+def updateProductF(request):
+    id_product = request.POST.get("id_product")
+    product = {
+        'photo': request.FILES.get('filephoto'),
+        'name': request.POST.get("txtname"),
+        'type': request.POST.get("selecttype"),
+        'description': request.POST.get("txtdescription"),
+        'price': request.POST.get("numprice"),
+        'user': request.user.username
+    }
+    print(product)
+    product = updateProduct(id_product, product)
+    return redirect("myProducts")
+
+def myProductEdit(request, id_product):
+    product = getProductById(id_product)
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    print(product.photo)
+    return render(request, "myProductEdit.html", context={"product": product, 'user': user, 'my_user': my_user})
+
+
+
+def product(request,id_product):
+    product = getProductById(id_product)
+    return render(request, "product.html", context={"product": product})

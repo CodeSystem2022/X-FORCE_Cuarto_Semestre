@@ -1,44 +1,46 @@
-{% extends "./templateMain.html" %}
+{% extends "./templateSingular.html" %}
+
 
 {% block body %}
- <div class="content">
-    <table>
-        <tbody>
-            <tr class="table-content ">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="espaciador"></div>
+<section class="container forms">
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-portada"></div> 
+    </section>
+    <div class="form" style="top:30vh;">
+        <div class="form-content">
+            <h1 class="log">producto</h1>
+                <form action="/updateProductF/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+                <div class="table-content">
+                    <div >
+                        <input type="file" id="id_imagen" name="filephoto" class="" style="left: -10px;">
+                        <div class="edit-img" style="background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
+                    </div>
+                <div class="table-element">
+                    <div class="field ">{{product.name}}</div>
+
+                    <div class="field">{{product.type}}</div>
+
+                    <div class="field ">{{product.description}}</div>
+                    
+                    <div class="field ">{{product.price}}</div>
+
+                </div>
+                </div>
+                    <div class="field">
+                        <button type="submit">Agregar producto</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    
+                
+        </div>
+    </div>
+<div class="container">
+<div class="espaciador"></div>
 </div>
-{% endblock %}
+
+</section>
+
+{%endblock%}

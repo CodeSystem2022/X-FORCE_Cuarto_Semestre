@@ -7,39 +7,19 @@
     </div>
     <table>
         <tbody>
+            {% for product in products %}
             <tr class="table-content ">
-                <td class="table-img">img</td>
+               <td class="table-img"><a href="{% url 'user' %}"><img class="img-main" src="../{{product.photo}}"/></td>
                 <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
+                    <div><a class="titulo" href="{% url 'user' %}">{{product.name}}</a></div>
+                    <div>{{product.description}}</div>
+                    <div>$ {{product.price}}</div>
+                    <div>Tipo {{product.type}}</div>
+                    <div>Stock: {{product.stock}}</div>
+                    <a href="{% url 'myProductEdit' product.id%}">editar</a>
                 </td>
             </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            
+            {% endfor %}            
         </tbody>
     </table>
     <div class="espaciador"></div>

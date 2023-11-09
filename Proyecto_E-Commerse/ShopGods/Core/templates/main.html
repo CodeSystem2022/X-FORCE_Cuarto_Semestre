@@ -2,41 +2,36 @@
 
 {% block body %}
  <div class="content">
-    <img src="{{ product.photo.url }}">
+    {% comment %} <img src="{{ product.photo.url }}"> {% endcomment %}
+    <p>Pagina {{actual_page}} De {{page_amount}}</p>
+    <span>
+        {% if actual_page > 1 %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:'-1' }}">&laquo; back</a>
+        {% endif %}
+        {% if actual_page == 1 %}
+        &laquo; back
+        {% endif %}
+        {% if actual_page < page_amount %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:1 }}">next &raquo;</a>
+        {% endif %}
+        {% if actual_page == page_amount %}
+        next &raquo;
+        {% endif %}
+    </span>
     <table>
         <tbody>
+            {% for product in products %}
             <tr class="table-content ">
-                <td class="table-img">img</td>
+               <td class="table-img"><a href="{% url 'product' product.id %}"><img class="img-main" src="../{{product.photo}}"/></td>
                 <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
+                    <div><a class="titulo" href="{% url 'product' product.id %}">{{product.name}}</a></div>
+                    <div>{{product.description}}</div>
+                    <div>$ {{product.price}}</div>
+                    <div>Tipo {{product.type}}</div>
+                    <div>Stock: {{product.stock}}</div>
                 </td>
             </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
+            {% endfor %}
             
         </tbody>
     </table>

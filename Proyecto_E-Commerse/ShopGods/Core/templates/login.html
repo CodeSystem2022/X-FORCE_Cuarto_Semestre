@@ -6,11 +6,11 @@
     <section class="seccion-perfil-usuario">
         <div class="perfil-usuario-portada"></div> 
     </section>
-    <div class="form login">
+    <div class="form login" style="width:35%;">
         <div class="form-content">
             <h1 class="log">Loguearse</h1>
                 <form action="/loginF/" method="POST"> {% csrf_token %}
-                    <div class="field input-field" style="left: -10px;">
+                    <div class="field" style="left: -10px; height:70px;">
                         <input type="text" placeholder="Nombre de usuario" name="txtname" class="input">
                     </div>
                     <div class="field input-field">

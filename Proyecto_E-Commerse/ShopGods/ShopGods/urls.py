@@ -22,7 +22,10 @@ urlpatterns = [
 
     path("MyProducts/", views.myProducts, name="myProducts"),
     path("addProduct/", views.addProduct, name="addProduct"),
-    #path("MyProductsRegister/", views.MyProductsRegister, name="MyProductsRegister"),
+    path("createProductF/", views.createProductF, name="createProductF"),
+    path("updateProductF/", views.updateProductF, name="updateProductF"),
+    path("myProductEdit/<int:id_product>/", views.myProductEdit, name="myProductEdit"),
+    path("product/<int:id_product>/", views.product, name="product"),
 
 
 

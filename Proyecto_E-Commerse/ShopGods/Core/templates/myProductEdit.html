@@ -1,44 +1,60 @@
-{% extends "./templateMain.html" %}
+{% extends "./templateSingular.html" %}
+
 
 {% block body %}
- <div class="content">
-    <table>
-        <tbody>
-            <tr class="table-content ">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            <tr class="table-content">
-                <td class="table-img">img</td>
-                <td class="table-element">
-                    <div>Nombre</div>
-                    <div>Autor</div>
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid earum ducimus, in soluta repellat a totam quisquam dolor vero ratione! Numquam quaerat nam ratione odio nihil dolorum ea qui temporibus?</div>
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
-    <div class="espaciador"></div>
+<section class="container forms">
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-portada"></div> 
+    </section>
+    <div class="form" style="top:30vh;">
+        <div class="form-content">
+            <h1 class="log">Editar producto</h1>
+                <form action="/updateProductF/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <input type="hidden" name="id_product" value="{{ product.id }}">
+                <div class="table-content">
+                    <div >
+                        <input type="file" id="id_imagen" name="filephoto" class="" style="left: -10px;">
+                        <div class="edit-img" style="background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
+                    </div>
+                <div class="table-element">
+                    <div class="field ">
+                        <input type="text" placeholder="Nombre del producto" name="txtname" class="input" value="{{product.name}}" style="left: -10px;">
+                    </div>
+
+                    <div class="field">
+                        <select name="selecttype" class="field" style="top:-10px">
+                            <option class="input" value="key">Clave</option>
+                            <option class="input" value="mail">Mail</option>
+                            <option class="input" value="others">Otros</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="field">
+                        <textarea type="text" placeholder="Descripción del producto" name="txtdescription" class="input" style="left: -10px;">{{product.description}}</textarea>
+                    </div>
+                    
+                    <div class="field">
+                        <input type="number" placeholder="Precio" name="numprice" class="numberprice" value="{{product.price|floatformat}}" style="left: -10px;">
+                        <i class='bx bx-hide eye-icon' ></i>
+                    </div>
+
+                </div>
+                </div>
+                    <div class="field">
+                        <button type="submit">Agregar producto</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    
+                
+        </div>
+    </div>
+<div class="container">
+<div class="espaciador"></div>
 </div>
-{% endblock %}
+
+</section>
+
+{%endblock%}

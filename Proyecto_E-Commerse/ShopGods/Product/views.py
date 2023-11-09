@@ -15,9 +15,16 @@ def getProductById(id: int):
     except Exception as e:
         return e
     
-def getProducts(amount_per_page: int = 25, actual_page: int = 1, search: str = ''):
+def getProductsByUser(user):
     try:
-        condition = Q(name__icontains=search)
+        products = Product.objects.filter(user=user)
+        return products
+    except Exception as e: 
+        return e
+    
+def getProducts(amount_per_page: int = 25, actual_page: int = 1, search: str = '', username: str = None):
+    try:
+        condition = (Q(name__icontains=search) | Q(description__icontains=search)) & ~Q(user__username=username)
         products = Product.objects.filter(condition)[(amount_per_page*actual_page)-amount_per_page:amount_per_page*actual_page]
         page_amount = math.ceil(Product.objects.filter(condition).count() / amount_per_page)
         response = {
@@ -90,7 +97,7 @@ def getItemByIdProductAndIdPurchase(id_product: int, id_purchase: int, type: str
 def createProduct(product_param):
     try:
         user = getUserByUsername(product_param["user"])
-        product = Product(user=user, name=product_param["name"], price=product_param["price"], type=product_param["type"]) 
+        product = Product(user=user, name=product_param["name"], price=product_param["price"], type=product_param["type"], description=product_param["description"], photo=product_param["photo"] if product_param["photo"] is not None else 'static/product/default.jpg') 
         product.save()
         return product
     except Exception as e:
@@ -101,6 +108,10 @@ def updateProduct(id, product_param):
         product = getProductById(id)
         product.name = product_param["name"]
         product.price = product_param["price"]
+        product.type = product_param["type"]
+        product.description = product_param["description"]
+        if product_param["photo"]:
+            product.photo = product_param["photo"]
         product.save()
         return product
     except Exception as e:

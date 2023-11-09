@@ -8,7 +8,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=False, null=False)
     stock = models.IntegerField(blank=True, default=0)
     sales_quantity = models.IntegerField(blank=True, null=True)
-    pay = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='static/product/', default='static/product/default.jpg')
     type = models.CharField(max_length=50, blank=False, null=False)
         
