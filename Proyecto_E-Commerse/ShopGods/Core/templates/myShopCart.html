@@ -3,6 +3,37 @@
 
 {% block body %}
  <div class="content">
+    <div id="paypal-button-container"></div>
+    <p id="result-message"></p>
+    <!-- Replace the "test" client-id value with your client-id -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ATwjK8NnYWMS9KuPh02UJdAVfTsjJw8V3EkmBGWNvJ4q9LORfJq0RPaKHwn_FYTv67-SzI_fKla4BeJk&currency=USD"></script> <!--&currency=AR-->
+    <script>
+        paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+            amount: {
+                value: '6000000.00'
+            }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details){
+        alert('Transaction completed by ' + details.payer.name.given_name);
+      });
+    }
+  })
+  .render("#paypal-button-container");
+  
+// Example function to show a result to the user. Your site's UI library can be used instead.
+function resultMessage(message) {
+  const container = document.querySelector("#result-message");
+  container.innerHTML = message;
+}
+    </script>
+    <a class="nav-link" style="margin: 0;cursor:pointer;" href="{% url 'payShopCart' shopping_cart_products.0.shoppingCart.id %}">Comprar carrito</a>
+    <p>{{shopping_cart_products.0.shoppingCart.id}}</p>
     <table>
         <tbody>
             {% for product in shopping_cart_products %}
@@ -13,7 +44,6 @@
                     <div style="overflow: hidden;max-height:9.5vh;">{{product.product.description|linebreaks}}</div>
                     <div>...</div>
                     <div>Precio unitario: $ {{product.product.price}}</div>
-                    <div>Precio total: $<span class="total-price"></span></div>
                     <div>Tipo: {{product.product.type}}</div>
                     <div>Cantidad: {{product.amount}}</div>
                     <a href="{% url 'myProductEdit' product.product.id%}">editar</a>
@@ -26,21 +56,6 @@
     
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Obtener todas las filas de la tabla
-        var rows = document.querySelectorAll(".table-content");
 
-        rows.forEach(function (row) {
-            // Obtener el precio unitario y la cantidad
-            var unitPrice = parseFloat(row.querySelector(".table-element div:nth-child(4)").textContent.split("$")[1]);
-            var quantity = parseInt(row.querySelector(".table-element div:nth-child(6)").textContent.split(":")[1]);
-
-            // Calcular el precio total y actualizar el contenido de la celda correspondiente
-            var totalPrice = unitPrice * quantity;
-            row.querySelector(".total-price").textContent = totalPrice.toFixed(2);
-        });
-    });
-</script>
 
 {% endblock %}

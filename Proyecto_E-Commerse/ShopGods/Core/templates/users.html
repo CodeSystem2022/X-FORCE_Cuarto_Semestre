@@ -1,35 +1,44 @@
-{% extends "./templateSingular.html" %}
-
-
-{% block body %}
+{% extends "./templateSingular.html" %} {% block body %}
 <section class="seccion-perfil-usuario">
-    <div class="perfil-usuario-portada">
-        <div class="perfil-usuario-avatar" style="background-image: url('{{ my_user.profile_photo}}');">
-        </div>
-    </div> 
-    <div class="perfil-usuario-body" style="top: 30px;">
-        <div class="perfil-usuario-footer">
-            <ul class="lista-datos">
-                <li> Username: {{ user.username }} </li>
-                <li> Correo: {{ user.email }} </li>
-                
-                <li> CBU: {{my_user.cbu}}</li>
-                
-                <li style="margin-top:-60px;"><form action="/darkMode/" method="POST">{% csrf_token %} Modo oscuro: <label class="switch" >
-                                            <input type="checkbox" id="nightDaySlider" name="nightDaySlider">
-                                            <span class="slider "></span>
-                                      </label>
-                                      <button type="submit" class="redirection-button">guardar </button>
-                </form></li>
-            </ul>
-            
-        </div>
-        <div class="footer-form">
-            <a class="redirection-button" href="{% url 'editUser' %}">Editar Datos</a>
+  <div class="perfil-usuario-portada">
+    <div
+      class="perfil-usuario-avatar"
+      style="background-image: url('{{ my_user.profile_photo}}');"
+    ></div>
+  </div>
+  <div class="perfil-usuario-body" style="top: 30px">
+    <div class="perfil-usuario-footer">
+      <ul class="lista-datos">
+        <li>Username: {{ user.username }}</li>
+        <li>Correo: {{ user.email }}</li>
 
-            <a class="redirection-button delete" href="{% url 'deleteUser' %}">Eliminar Cuenta</a>
-        </div>
+        <li>CBU: {{my_user.cbu}}</li>
+
+        <li style="margin-top: -60px">
+          <form action="/darkMode/" method="POST">
+            {% csrf_token %} Modo oscuro:
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="nightDaySlider"
+                name="nightDaySlider"
+              />
+              <span class="slider"></span>
+            </label>
+            <button type="submit" class="redirection-button">guardar</button>
+          </form>
+        </li>
+      </ul>
     </div>
+    <div class="footer-form">
+      <a class="redirection-button" href="{% url 'editUser' %}">Editar Datos</a>
+
+      <a class="redirection-button delete" href="{% url 'deleteUser' %}"
+        >Eliminar Cuenta</a
+      >
+    </div>
+  </div>
 </section>
-<div class="espaciador" style="position: relative; top: 40vh;">a</div>
+<div class="espaciador" style="position: relative; top: 40vh">a</div>
+
 {%endblock%}

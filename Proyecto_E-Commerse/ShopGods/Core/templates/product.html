@@ -27,6 +27,7 @@
 
                 </div>
                 </div>
+                {% if login %}
                     <form class="field"  action="{% url 'addProductToShoppingCartF' id_product=product.id %}" method="POST">{% csrf_token %}
                         <p>Cantidad que se desea comprar:</p>
                         <div class="field" style="flex-direction:row;">
@@ -37,6 +38,22 @@
                             <button type="submit">Agregar al carrito</button>
                         </div>
                     </form>
+                {% endif %}
+                {% if not login %}
+                    <p>Cantidad que se desea comprar:</p>
+                    <div class="field" style="flex-direction:row;">
+                        <input name="numAmount" type="number" class="input" placeholder="Ingrese la cantidad" style="width:50%;" min="0" max="{{product.stock}}" oninput="validateInput()">                            <p>Precio total:  $</p>
+                        <p class="priceTotal"></p>
+                    </div>
+                    <div class="field">
+                        <button type="submit" onclick="showAlert()">Agregar al carrito</button>
+                    </div>
+                    <script>
+                        function showAlert() {
+                            alert("¡Debe loguearse para añadir producto al carrito!");
+                        }
+                    </script>
+                {% endif %}
         </div>
     </div>
     

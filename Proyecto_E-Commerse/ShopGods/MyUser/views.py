@@ -3,26 +3,28 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404
 from .models import MyUser
 
+
 def getUserByUsername(username: str):
     try:
-        user = get_object_or_404(User,username=username)
+        user = get_object_or_404(User, username=username)
         return user
     except Exception as e:
         return e
 
+
 def createUser(user):
     try:
-        print('Entra a create user')
-        user = User.objects.create_user(username=user['username'], password=user['password'], email=user['email'])
+        user = User.objects.create_user(
+            username=user['username'], password=user['password'], email=user['email'])
         user.save()
-        print('el user creado es', user)
         myUser = MyUser(user=user)
         myUser.save()
         return user
     except Exception as e:
         print('Entra a exepcion', e)
         return e
-    
+
+
 def login_access(request, username: str, password: str):
     user = authenticate(username=username, password=password)
     if user is not None:
@@ -30,18 +32,20 @@ def login_access(request, username: str, password: str):
         return user
     else:
         return None
-    
+
+
 def changeToDarckMode():
     return
 
+
 def getMyUserByUser(user):
     try:
-        print('user',user)
         myUser = MyUser.objects.get(user=user)
         return myUser
     except Exception as e:
         return None
-    
+
+
 def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, cbu: int = 0, profile_photo: str = None):
     try:
         user = getUserByUsername(username=old_username)
@@ -52,7 +56,7 @@ def changeUser(username: str = None, old_username: str = None, password: str = N
         user.save()
         print('ACa1')
         myUser = getMyUserByUser(user)
-        print('myUser',myUser)
+        print('myUser', myUser)
         print('Aca 2')
         myUser.cbu = cbu if cbu.isnumeric() else 0
         myUser.profile_photo = profile_photo
@@ -60,6 +64,7 @@ def changeUser(username: str = None, old_username: str = None, password: str = N
         return list(user, myUser)
     except Exception as e:
         return e
+
 
 def deleteUserB(username):
     try:
@@ -72,17 +77,17 @@ def deleteUserB(username):
 #     try:
 #         UserList = User.objects.all()
 #         users = list(set(UserList.values_list('username', 'password')))
-        
+
 #         inputList = [username, password]
-        
+
 #         print(users)
 #         print(inputList)
-        
+
 #         for index in users:
 #             print (index, "\n", inputList)
 #             if index[0] == inputList[0] and index[1] == inputList[1]:
 #                 return True
-    
+
 #         return False
 #     except Exception as e:
 #         return e

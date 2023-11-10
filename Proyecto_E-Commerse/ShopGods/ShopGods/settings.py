@@ -18,6 +18,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 #    "192.168.1.12", "192.168.0.100",            Tierra nativa 2,    wifi-casa  ,
 
+# LOGIN_URL variable that indicate the login url
+LOGIN_URL = 'login'
 
 # Application definition
 
