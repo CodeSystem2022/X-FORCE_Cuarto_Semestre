@@ -12,7 +12,7 @@ class ShoppingCart(models.Model):
 #HACER RELACION CON PRODUCTO DONDE SE LE DEBE AGREGAR CANTIDAD
 class ShoppingCartProduct(models.Model):
     shoppingCart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     amount = models.IntegerField(default=1, blank=False, null=False)
     
     def __str__(self):

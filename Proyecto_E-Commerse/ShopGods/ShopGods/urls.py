@@ -28,12 +28,15 @@ urlpatterns = [
     path("product/<int:id_product>/", views.product, name="product"),
     path("deleteProduct/<int:id_product>/", views.deleteProduct, name="deleteProduct"),
 
+    path("createItem/", views.createItem, name="createItem"),
+    path("deleteItem/<int:id_item>/<int:id_product>/<str:product_type>/", views.deleteItem, name="deleteItem"),
+
 #--------------------Referido a carrito de compras----------------------------------------------#
 
 
     path("MyShopCart/", views.myShopCart, name="myShopCart"),
- #   path("addShopCart/", views.addShopCart, name="addShopCart"),
- #   path("deleteShopCart/", views.deleteShopCart, name="deleteShopCart"),
+    path("addProductToShoppingCartF/<int:id_product>/", views.addProductToShoppingCartF, name="addProductToShoppingCartF"),
+    path("deleteShopCart/<int:id_shopcart>", views.deleteShopCart, name="deleteShopCart"),
  #   path("payShopCart/", views.payShopCart, name="payShopCart"),
 
 

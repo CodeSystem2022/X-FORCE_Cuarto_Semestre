@@ -18,7 +18,7 @@ def createUser(user):
         print('el user creado es', user)
         myUser = MyUser(user=user)
         myUser.save()
-        return True
+        return user
     except Exception as e:
         print('Entra a exepcion', e)
         return e

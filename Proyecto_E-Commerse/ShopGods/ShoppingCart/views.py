@@ -3,6 +3,7 @@ from Product.views import getProductById, thereIsStock
 from django.shortcuts import get_object_or_404
 from MyUser.views import getUserByUsername
 from django.http import HttpResponse
+from django.db.models import Q
 
 def getShoppingCartByUsername(username: str):
     try:
@@ -20,9 +21,8 @@ def getProductsOfShoppingCart(username: str):
         return e
 
 # Cada vez que se realiza una compra se debe crear un carrito pero antes borrarlo
-def createShoppingCart(username):
+def createShoppingCart(user):
     try:
-        user = getUserByUsername(username=username)
         if ShoppingCart.objects.filter(user=user).count() == 0:
             shoppingCart = ShoppingCart(user=user)
             shoppingCart.save()
@@ -34,11 +34,14 @@ def createShoppingCart(username):
     
 def addProductToShoppingCart(username: str, product_param: any):
     try:
+        print('Aca 1')
         product = getProductById(product_param['id'])
-        # Preguntar si es el mismo, si es el mismo sumar amount
-        shoppingCartProduct = ShoppingCartProduct.objects.filter(product__id=product_param['id'])[:1]
+        condition = Q(product__id=product_param['id']) & Q(shoppingCart__user__username=username)
+        shoppingCartProduct = ShoppingCartProduct.objects.filter(condition)[:1]
+        print('Aca 2')
+        print('shoppingCartProduct', shoppingCartProduct)
         if shoppingCartProduct:
-            print('Existe')
+            print('Aca Existe')
             print(shoppingCartProduct[0])
             product_param['amount'] = product_param['amount'] + shoppingCartProduct[0].amount
             thereIs = thereIsStock(product=product , amount=product_param['amount'])
@@ -47,15 +50,25 @@ def addProductToShoppingCart(username: str, product_param: any):
                 shoppingCartProduct[0].save()
                 return True
             if thereIs['stock'] == False:
+                print('No hay stock pero existe')
                 return False
         thereIs = thereIsStock(product=product , amount=product_param['amount'])
         if thereIs['stock'] == True:
+            print('Aca No existe pero hay stock')
             shoppingCart = getShoppingCartByUsername(username)
             shoppingCartProduct = ShoppingCartProduct(shoppingCart=shoppingCart, product=product, amount=product_param['amount'])
             shoppingCartProduct.save()
             return True
         if thereIs['stock'] == False:
+            print('No hay stock')
             return False
+    except Exception as e:
+        return e
+    
+def deleteItemOfShoppingCart(id_shopping_cart_product: int):
+    try:
+        ShoppingCartProduct.objects.filter(id=id_shopping_cart_product).delete()
+        return True
     except Exception as e:
         return e
     

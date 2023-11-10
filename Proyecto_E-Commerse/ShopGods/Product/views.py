@@ -49,9 +49,8 @@ def getItemById(id: int, type: str):
     except Exception as e:
         return e
 
-def getItemsByProductId(id_product: int, type: str, bought: bool = None, amount_per_page: int = 25, actual_page: int = 1):
+def getItemsByProduct(product: any, type: str, bought: bool = None, amount_per_page: int = 25, actual_page: int = 1):
     try:
-        product = getProductById(id_product)
         condition = Q(product=product)
         if bought is True:
             condition &= Q(puschase__isnull=True)
@@ -108,7 +107,6 @@ def updateProduct(id, product_param):
         product = getProductById(id)
         product.name = product_param["name"]
         product.price = product_param["price"]
-        product.type = product_param["type"]
         product.description = product_param["description"]
         if product_param["photo"]:
             product.photo = product_param["photo"]
@@ -171,6 +169,7 @@ def deleteProductById(id: int):
     try:
         product = getProductById(id)
         purchased_product_count = PurchaseProduct.objects.filter(product=product).count()
+        print('purchased_product_count', purchased_product_count)
         if purchased_product_count == 0:
             product.delete()
             return True

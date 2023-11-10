@@ -917,3 +917,17 @@ position: absolute;
     background-size: cover;
     background-position: 50%;
 }
+
+
+
+th{
+    text-align: left;
+}
+.items-table{
+    overflow:scroll;
+    max-height:40vh;
+    height:auto;
+}
+tr:nth-child(even) {
+    background-color: var(--FondoAvatar); /* Color para filas impares */
+}
