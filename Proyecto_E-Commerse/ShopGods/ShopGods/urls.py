@@ -17,7 +17,7 @@ urlpatterns = [
     path("editUser/", login_required(views.editUser), name="editUser"),
     path('addUser/', views.addUser, name='addUser'),
     path("deleteUser/", views.deleteUser, name="deleteUser"),
-    path("user/", login_required(views.user), name="user"),
+    path("user/<int:int_null>", login_required(views.user), name="user"),
 
     # --------------------Referido a Productos----------------------------------------------#
 
@@ -45,15 +45,28 @@ urlpatterns = [
          views.deleteShopCart, name="deleteShopCart"),
     path("payShopCart/<int:id_shopping_cart>/",
          views.payShopCart, name="payShopCart"),
-
+    path("pago/",
+         views.pago, name="pago"),
 
 
     path("Main/", views.main, name="main"),
 
 
 
+    # --------------------Referido a carrito de compras----------------------------------------------#
+
+
+    path("MyRecord/", views.myRecord, name="myRecord"),
+    path("Historybuy/<int:id_record>", views.historyBuy, name="historyBuy"),
+    #    path("Historybuy/<int:id_user>", views.Historybuy, name="Historybuy"),
+
+
+
+
     # --------------------Otros programas----------------------------------------------#
     path('darkMode/', views.darkMode, name='darkMode'),
+
+    path('formNull/<int:int_null>', views.formNull, name='formNull'),
 
     # ----------Rutas de la aplicación----------#
     path('login/', include('Core.urls')),

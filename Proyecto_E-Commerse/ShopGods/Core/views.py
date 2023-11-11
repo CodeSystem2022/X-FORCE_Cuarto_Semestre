@@ -1,10 +1,12 @@
 
-import mercadopago
+from Purchases.models import *
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db import IntegrityError
 from MyUser.views import *
 from Product.views import *
 from ShoppingCart.views import *
+from Purchases.views import *
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
 
@@ -55,7 +57,7 @@ def main(request):
 # ---------------------------Referido a Usuarios-------------------------------#
 
 @login_required
-def user(request):  # Renderiza la página de usuario
+def user(request, int_null):  # Renderiza la página de usuario
     # id = User.objects.get(id = iduser)
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
@@ -63,6 +65,8 @@ def user(request):  # Renderiza la página de usuario
 
 
 def addUser(request):  # Renderiza la página de registrar usuario
+
+    # if ((request.POST.get("txtname") == None) or (request.POST.get("txtpassword")==None) or (request.POST.get("txtmail") == none)):
     user = {
         'username': request.POST.get("txtname"),
         'password': request.POST.get("txtpassword"),
@@ -95,17 +99,18 @@ def modifyUser(request):  # Modifica un usuario
         'email': request.POST.get("txtemail"),
         'password': request.POST.get("txtpassword"),
         'repassword': request.POST.get("txtrepassword"),
-        'cbu': request.POST.get("txtcbu"),
+        'client_id': request.POST.get("txtclient_id"),
+        'secret_key': request.POST.get('txtsecret_key'),
         'profile_photo': request.POST.get("txtphoto")
     }
     if not user["password"] or not user["repassword"]:
         response = changeUser(username=user["username"], old_username=user["old_username"],
-                              email=user["email"], cbu=user["cbu"], profile_photo=user["profile_photo"])
-        return redirect("user")
+                              email=user["email"], client_id=user["client_id"], secret_key=user["secret_key"], profile_photo=user["profile_photo"])
+        return redirect("user", int_null=0)
     if user["password"] == user["repassword"]:
         changeUser(username=user["username"], old_username=user["old_username"], email=user["email"],
-                   cbu=user["cbu"], profile_photo=user["profile_photo"], password=user["password"])
-        return redirect("login")
+                   client_id=user["client_id"], secret_key=user["secret_key"], profile_photo=user["profile_photo"], password=user["password"])
+        return redirect("login", int_null=0)
 
 
 def deleteUser(request):  # Borra un usuario
@@ -140,7 +145,12 @@ def createProductF(request):  # Crea un nuevo producto
         'user': request.user.username
     }
     product = createProduct(product)
-    return redirect("myProducts")
+
+    if createProduct(product) == False:
+        return redirect("formNull", int_null=1)
+    else:
+        product = createProduct(product)
+        return redirect("myProducts")
 
 
 @login_required
@@ -225,6 +235,10 @@ def myShopCart(request):  # Renderiza la pagina del carrito de compra
     my_user = getMyUserByUser(user=user)
     shopping_cart_products = getProductsOfShoppingCart(user.username)
     print(shopping_cart_products)
+
+    for shop_cart_product in shopping_cart_products:
+        shop_cart_product.client_id = getMyUserByUser(
+            shop_cart_product.product.user).client_id
     return render(request, "myShopCart.html", context={'user': user, 'my_user': my_user, 'shopping_cart_products': shopping_cart_products})
 
 
@@ -248,6 +262,53 @@ def deleteShopCart(request, id_shopcart):  # Borra un producto del carrito
 # def deleteItemOfShoppingCartF(request):
 
 
+# hay que modificar funcion delete product para que no borre si tiene una compra
+def pago(request):
+    # Debe buscar si el usaurio actual tiene una compra cerrar
+    # Si esta cerrada debe crear una nueva, y si esta abierta debe agregar agregar productos
+    try:
+        print('Entro a pago')
+        data = json.loads(request.body)
+        user_id = data['user_id']
+        order_id = data['orderID']
+        product_id = data['product_id']
+        amount = data['amount']
+        shopping_cart_product_id = ['shopping_cart_product_id']
+        product = getProductById(product_id)
+        my_user = getMyUserByUserId(user_id=user_id)
+
+        print('order_id', order_id)
+        print('my_user.client_id', my_user.client_id)
+        print('my_user.secret_ke', my_user.secret_key)
+        # Hay que preguntar si hay stock
+        response = thereIsStock(product=product, amount=amount)
+        print(response)
+        if response['stock'] == False:
+            return redirect("myShopCart")
+
+        detail = GetOrder(my_user.client_id,
+                          my_user.secret_key).get_order(order_id)
+        # detail_price = float(detail.result.purchase_units[0].amount.value)
+        # if detail_price == product.price * amount:
+        trx = CaptureOrder(my_user.client_id, my_user.secret_key).capture_order(
+            order_id, debug=True)
+        createPurchase(user_id=user_id, product=product, price=float(product.price) *
+                       int(amount), unit_price=product.price, amount=amount, shopping_cart_product_id=shopping_cart_product_id)
+        data = {
+            "id": f"{trx.result.id}",
+            "nombre_cliente": f"{trx.result.payer.name.given_name}",
+            "mensaje": "Compra realizada exitosamente"
+        }
+        return redirect("myShopCart")
+    except Exception as e:
+        return redirect("myShopCart")
+    # else:
+    #     data = {
+    #         "mensaje": "No se pudo realizar la compra"
+    #     }
+    #     return redirect("myShopCart")
+
+
 def payShopCart(request, id_shopping_cart):
 
     print('id_shopping_cart', id_shopping_cart)
@@ -255,10 +316,26 @@ def payShopCart(request, id_shopping_cart):
     return redirect("myShopCart")
 
 
-#
+# -------------------------------Referido a historial-------------------------------#
+
+
+def myRecord(request):         # Renderiza la pagina del historial
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+
+    historyProductClient = Purchases.objects.filter(user__id=user.id)
+    historyProductSeller = Purchases.objects.filter(
+        product__user__id=user.id)
+    historyProduct = list(historyProductClient) + list(historyProductSeller)
+    return render(request, "MyRecord.html", {"purchases": historyProduct, 'user': user, 'my_user': my_user})
+
+
+def historyBuy(request, id_record):      # Renderiza la pagina del producto del historial
+    historyProduct = Purchases.objects.get(id=id_record)
+    return render(request, "historybuy.html", {"products": historyProduct})
+
 
 # -------------------------------Referido a funciones varias-------------------------------#
-
 
 def darkMode(request):
     DarkMode = request.POST.get("nightDaySlider") == 'on'
@@ -267,3 +344,19 @@ def darkMode(request):
     my_user.dark_mode = DarkMode
     my_user.save()
     return render(request, "users.html", context={'user': user, 'my_user': my_user})
+
+
+def formNull(request, int_null):
+    return redirect("user", int_null=int_null)
+
+
+def check_empty_form(request):
+    if request.method == 'POST':
+        for key, value in request.POST.items():
+            # Si algún campo del formulario tiene un valor, no está vacío
+            if value:
+                return False
+        # Todos los campos del formulario están vacíos
+        return True
+    # No es una solicitud POST
+    return None

@@ -931,3 +931,13 @@ th{
 tr:nth-child(even) {
     background-color: var(--FondoAvatar); /* Color para filas impares */
 }
+
+.pay-button{
+    position:relative;
+    top:-7px;
+}
+
+.pay-button:hover{
+    color:var(--ColorTerciario);
+    cursor:pointer;
+}

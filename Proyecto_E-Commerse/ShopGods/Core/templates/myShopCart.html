@@ -3,36 +3,27 @@
 
 {% block body %}
  <div class="content">
-    <div id="paypal-button-container"></div>
     <p id="result-message"></p>
     <!-- Replace the "test" client-id value with your client-id -->
-    <script src="https://www.paypal.com/sdk/js?client-id=ATwjK8NnYWMS9KuPh02UJdAVfTsjJw8V3EkmBGWNvJ4q9LORfJq0RPaKHwn_FYTv67-SzI_fKla4BeJk&currency=USD"></script> <!--&currency=AR-->
     <script>
-        paypal.Buttons({
-    createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-            amount: {
-                value: '6000000.00'
+        function token(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details){
-        alert('Transaction completed by ' + details.payer.name.given_name);
-      });
+        }
+        return cookieValue;
     }
-  })
-  .render("#paypal-button-container");
-  
-// Example function to show a result to the user. Your site's UI library can be used instead.
-function resultMessage(message) {
-  const container = document.querySelector("#result-message");
-  container.innerHTML = message;
-}
+    var csrftoken = token('csrftoken');
     </script>
-    <a class="nav-link" style="margin: 0;cursor:pointer;" href="{% url 'payShopCart' shopping_cart_products.0.shoppingCart.id %}">Comprar carrito</a>
+    <script class="una-variable-mas" src="https://www.paypal.com/sdk/js?client-id=ATwjK8NnYWMS9KuPh02UJdAVfTsjJw8V3EkmBGWNvJ4q9LORfJq0RPaKHwn_FYTv67-SzI_fKla4BeJk&currency=USD"></script> <!--&currency=AR-->
     <p>{{shopping_cart_products.0.shoppingCart.id}}</p>
     <table>
         <tbody>
@@ -49,7 +40,43 @@ function resultMessage(message) {
                     <a href="{% url 'myProductEdit' product.product.id%}">editar</a>
                 </td>
                 <td><a type="submit" class="nav-link delete-item" style="margin: 0;cursor:pointer;" href="{% url 'deleteShopCart' product.id %}">borrar producto</a></td>
+                <td><div class="pay-button nav-link">comprar producto<div id="paypal-button-container-{{ product.product.id }}" id-client="{{product.client_id}}" style="display:none;"></div></div></td>
+                {% comment %} id-client="{{}}" {% endcomment %}
             </tr>
+            <script>
+                    paypal.Buttons({
+                createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat('{{ product.product.price|floatformat:"2" }}') * {{ product.amount }}
+                        }
+                    }]
+                });
+                },
+                onApprove: function(data) {
+                    return fetch('/pago/', {
+                        method: 'POST',
+                        headers: {
+                        'content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                        },
+                        body: JSON.stringify({
+                        orderID: data.orderID,
+                        user_id: '{{product.product.user.id}}',
+                        product_id: '{{product.product.id}}',
+                        amount: '{{product.amount}}',
+                        shopping_cart_product_id: '{{product.id}}'
+                        })
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(details) {
+                        alert(details.mensaje);
+                    })
+                }
+            })
+            .render("#paypal-button-container-{{ product.product.id }}");
+            </script>
             {% endfor %}    
         </tbody>
     </table>

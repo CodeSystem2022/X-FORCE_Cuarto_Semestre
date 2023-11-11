@@ -1,0 +1,42 @@
+{% extends "./templateMain.html" %}
+
+{% block body %}
+ <div class="content">
+    {% comment %} <img src="{{ purchase.photo.url }}"> {% endcomment %}
+    <p>Pagina {{actual_page}} De {{page_amount}}</p>
+    <span>
+        {% if actual_page > 1 %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:'-1' }}">&laquo; back</a>
+        {% endif %}
+        {% if actual_page == 1 %}
+        &laquo; back
+        {% endif %}
+        {% if actual_page < page_amount %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:1 }}">next &raquo;</a>
+        {% endif %}
+        {% if actual_page == page_amount %}
+        next &raquo;
+        {% endif %}
+    </span>
+    <table>
+        <tbody>
+            {% for purchase in purchases %}
+            <tr class="table-content ">
+               <td class="table-img"><a href="{% url 'historyBuy' product.id %}"><img class="img-main" src="../{{purchase.product.photo}}"/></td>
+                <td class="table-element">
+                    <div><a class="titulo" href="{% url 'historyBuy' purchase.id %}">{{purchase.product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{purchase.product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio: ${{purchase.product.price}}</div>
+                    <div>Tipo: {{purchase.product.type}}</div>
+                    <div>Stock: {{purchase.product.stock}}</div>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    <div class="espaciador" style="position: relative; top: 20vh;"></div>
+</div>
+
+{% endblock %}

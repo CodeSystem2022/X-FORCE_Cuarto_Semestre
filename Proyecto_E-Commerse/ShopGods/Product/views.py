@@ -4,8 +4,8 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.db.models.query import QuerySet
 from MyUser.views import getUserByUsername
-from Purchases.models import PurchaseProduct
 import math
+from Purchases.models import Purchases
 
 
 def getProductById(id: int):
@@ -119,7 +119,7 @@ def createProduct(product_param):
         product.save()
         return product
     except Exception as e:
-        return e
+        return False
 
 
 def updateProduct(id, product_param):
@@ -197,10 +197,10 @@ def addItem(type, id_product, items):
 def deleteProductById(id: int):
     try:
         product = getProductById(id)
-        purchased_product_count = PurchaseProduct.objects.filter(
+        purchases = Purchases.objects.filter(
             product=product).count()
-        print('purchased_product_count', purchased_product_count)
-        if purchased_product_count == 0:
+        print('purchased_product_count', purchases)
+        if purchases == 0:
             product.delete()
             return True
         else:
@@ -230,7 +230,7 @@ def deleteItemById(id: int, type: str):
 def thereIsStock(product, amount):
     try:
         stock = {
-            'stock': amount <= product.stock,
+            'stock': int(amount) <= int(product.stock),
             'amount': product.stock
         }
         return stock

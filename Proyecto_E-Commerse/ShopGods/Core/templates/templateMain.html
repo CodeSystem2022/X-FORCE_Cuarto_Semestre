@@ -1,125 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
     <!-- Hipervinculos a otras paginas -->
-    <script src="https://kit.fontawesome.com/823f508539.js" crossorigin="anonymous"></script><!--AwesomeFonts-->
-    <script src="https://kit.fontawesome.com/44a853ca4e.js" crossorigin="anonymous"></script><!--AwesomeFonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com"><!--GoogleFonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!--GoogleFonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet"><!--Titulos-->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"><!--Cuerpos-->
-    <link rel="icon" type="image/x-icon" href="{% static 'imgs/bolt-fav.png' %}">
+    <script
+      src="https://kit.fontawesome.com/823f508539.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--AwesomeFonts-->
+    <script
+      src="https://kit.fontawesome.com/44a853ca4e.js"
+      crossorigin="anonymous"
+    ></script>
+    <!--AwesomeFonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!--GoogleFonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--GoogleFonts-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap"
+      rel="stylesheet"
+    />
+    <!--Titulos-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <!--Cuerpos-->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'imgs/bolt-fav.png' %}"
+    />
 
     <!-- lala -->
-</head>
-<body>
-    <header> 
-       
-        <nav class="nav-bar">
-            <ul class="nav-ul nav-block">
-                
-                <li class="nav-link"><a href="{% url 'user' %}">Usuario</a></li>    
-                <li class="nav-link"><a href="{% url 'user' %}">Historial</a></li>    
-                
-                <h1 ><a href="{% url 'main' %}" class="nav-link titulo">Shop Gods</a></h1>
-                
-                <li class="nav-link"><a href="{% url 'myProducts' %}">Mis Productos</a></li>
-                <li class="nav-link "><a href="{% url 'myShopCart' %}">Carrito</a></li>
-                
-               
-            </ul>
-        </nav>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-bar">
+        <ul class="nav-ul nav-block">
+          <li class="nav-link"><a href="{% url 'user' 0 %}">Usuario</a></li>
+          <li class="nav-link">
+            <a href="{% url 'myRecord' %}">Historial</a>
+          </li>
+          <h1>
+            <a href="{% url 'main' %}" class="nav-link titulo">Shop Gods</a>
+          </h1>
 
+          <li class="nav-link">
+            <a href="{% url 'myProducts' %}">Mis Productos</a>
+          </li>
+          <li class="nav-link"><a href="{% url 'myShopCart' %}">Carrito</a></li>
+        </ul>
+      </nav>
+      <div>{{}}</div>
     </header>
 
-    <aside>    
-    <div class="aside">
-
+    <aside>
+      <div class="aside">
         <div class="top-aside">
-            <input type="text" placeholder="Buscar:" class="input-aside-bar">
+          <input type="text" placeholder="Buscar:" class="input-aside-bar" />
         </div>
         <div class="categories">Categorías</div>
         <ul>
-            <li class="filter">Juegos<div class="filter-panel"><ul>
-                                                <li>Riot Games</li>
-                                                <li>Blizzard</li>
-                                                <li>Indie</li>
-                                              </ul></div></li>
-            <li class="filter">Skins</li>
-            <li class="filter">Pases</li>
-            <li class="filter">Del juego:<div class="filter-panel"><ul>
-                                                    <li>League of Legend</li>
-                                                    <li>World Of Warcraft</li>
-                                                    <li>CS GO</li>
-                                                    <li>Valorant</li>
-                                                    <li>Fornite</li>
-                                                    </ul></div></li>
-            <li class="filter">Otros</li>
+          <li class="filter">
+            Juegos
+            <div class="filter-panel">
+              <ul>
+                <li>Riot Games</li>
+                <li>Blizzard</li>
+                <li>Indie</li>
+              </ul>
+            </div>
+          </li>
+          <li class="filter">Skins</li>
+          <li class="filter">Pases</li>
+          <li class="filter">
+            Del juego:
+            <div class="filter-panel">
+              <ul>
+                <li>League of Legend</li>
+                <li>World Of Warcraft</li>
+                <li>CS GO</li>
+                <li>Valorant</li>
+                <li>Fornite</li>
+              </ul>
+            </div>
+          </li>
+          <li class="filter">Otros</li>
         </ul>
-    </div>
-    
+      </div>
 
-    <!-- <div class="filter-panel"><ul>
+      <!-- <div class="filter-panel"><ul>
         <li>League Of Legends</li>
         <li>World Of Warcraft</li>
         <li>Valorant</li>
         <li>CS GO</li>
       </ul></div> -->
-    
     </aside>
-    {% block body %}
-    {% endblock %}
-
+    {% block body %} {% endblock %}
 
     <footer>
-
-
-        <div class="container__footer">
-
-            <div class="box__footer">
-                <div class="terms">
-                    <p></p>
-                </div>
-            </div>
-
-            <div class="box__footer">
-                <h2>Redes Sociales</h2>
-                <a href="#"> <i class="fa-brands fa-instagram"></i> Instagram</a>
-                <a href="#"> <i class="fa-brands fa-facebook"></i> Facebook</a>
-                <a href="#"> <i class="fa-brands fa-x-twitter"></i> Twitter</a>
-            </div>
+      <div class="container__footer">
+        <div class="box__footer">
+          <div class="terms">
+            <p></p>
+          </div>
         </div>
 
-        <hr>
-        <div class="box__copyright">
-            <div class="box__footer copy">
-                <div class="logo">
-                    <img src="{%static 'img/Logo.png'}" alt="">
-                </div>
-            </div>
-            
-            <p class="copy">Todos los derechos reservados © 2023</p>
-            <b class="copy">ShopGods</b>
-
-            <button id="btn-black" class="btn-neon-black">
-                <i id="imagen1" class="fa-solid fa-moon" style="color: #7d1fa8;"></i>
-                <i id="imagen2" class="fa-solid fa-sun" style="color: #e5a315;"></i>
-            </button>
-
+        <div class="box__footer">
+          <h2>Redes Sociales</h2>
+          <a href="#"> <i class="fa-brands fa-instagram"></i> Instagram</a>
+          <a href="#"> <i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="#"> <i class="fa-brands fa-x-twitter"></i> Twitter</a>
         </div>
-        
-        <input type="hidden" id="dayNightBoolean" value="{{my_user.dark_mode}}">
+      </div>
+
+      <hr />
+      <div class="box__copyright">
+        <div class="box__footer copy">
+          <div class="logo">
+            <img src="{%static 'img/Logo.png'}" alt="" />
+          </div>
+        </div>
+
+        <p class="copy">Todos los derechos reservados © 2023</p>
+        <b class="copy">ShopGods</b>
+
+        <button id="btn-black" class="btn-neon-black">
+          <i id="imagen1" class="fa-solid fa-moon" style="color: #7d1fa8"></i>
+          <i id="imagen2" class="fa-solid fa-sun" style="color: #e5a315"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="dayNightBoolean" value="{{my_user.dark_mode}}" />
     </footer>
-    <script type="text/javascript" src="{%static 'js/Day_Night_Button.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{%static 'js/Day_Night_Button.js' %}"
+    ></script>
     <script type="text/javascript" src='{%static "js/Alerts.js" %}'></script>
     <script type="text/javascript" src='{%static "js/noNone.js" %}'></script>
-    <script type="text/javascript" src='{%static "js/priceProducts.js" %}'></script>
-    <script type="text/javascript" src='{%static "heightValue.js" %}'></script>
+    <script
+      type="text/javascript"
+      src='{%static "js/priceProducts.js" %}'
+    ></script>
+    <script
+      type="text/javascript"
+      src='{%static "js/heightValue.js" %}'
+    ></script>
+    <script type="text/javascript" src='{%static "js/Paypal.js" %}'></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</body>
+  </body>
 </html>

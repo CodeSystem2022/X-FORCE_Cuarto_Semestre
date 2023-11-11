@@ -12,6 +12,14 @@ def getUserByUsername(username: str):
         return e
 
 
+def getUserById(id: int):
+    try:
+        user = get_object_or_404(User, id=id)
+        return user
+    except Exception as e:
+        return e
+
+
 def createUser(user):
     try:
         user = User.objects.create_user(
@@ -38,6 +46,14 @@ def changeToDarckMode():
     return
 
 
+def getMyUserByUserId(user_id):
+    try:
+        myUser = MyUser.objects.get(user__id=user_id)
+        return myUser
+    except Exception as e:
+        return None
+
+
 def getMyUserByUser(user):
     try:
         myUser = MyUser.objects.get(user=user)
@@ -46,7 +62,7 @@ def getMyUserByUser(user):
         return None
 
 
-def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, cbu: int = 0, profile_photo: str = None):
+def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, client_id: str = None, secret_key: str = None, profile_photo: str = None):
     try:
         user = getUserByUsername(username=old_username)
         user.username = username
@@ -54,11 +70,9 @@ def changeUser(username: str = None, old_username: str = None, password: str = N
         if password:
             user.set_password(password)
         user.save()
-        print('ACa1')
         myUser = getMyUserByUser(user)
-        print('myUser', myUser)
-        print('Aca 2')
-        myUser.cbu = cbu if cbu.isnumeric() else 0
+        myUser.client_id = client_id
+        myUser.secret_key = secret_key
         myUser.profile_photo = profile_photo
         myUser.save()
         return list(user, myUser)
