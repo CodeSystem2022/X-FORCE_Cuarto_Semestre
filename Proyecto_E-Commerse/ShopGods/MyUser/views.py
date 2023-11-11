@@ -62,7 +62,7 @@ def getMyUserByUser(user):
         return None
 
 
-def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, client_id: str = None, secret_key: str = None, profile_photo: str = None):
+def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, client_id: str = '', secret_key: str = '', profile_photo: str = ''):
     try:
         user = getUserByUsername(username=old_username)
         user.username = username

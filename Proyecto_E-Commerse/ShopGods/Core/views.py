@@ -273,7 +273,7 @@ def pago(request):
         order_id = data['orderID']
         product_id = data['product_id']
         amount = data['amount']
-        shopping_cart_product_id = ['shopping_cart_product_id']
+        shopping_cart_product_id = data['shopping_cart_product_id']
         product = getProductById(product_id)
         my_user = getMyUserByUserId(user_id=user_id)
 
@@ -284,24 +284,31 @@ def pago(request):
         response = thereIsStock(product=product, amount=amount)
         print(response)
         if response['stock'] == False:
-            return redirect("myShopCart")
+            data = {
+                "mensaje": "No se pudo realizar la compra porque no hay stock"
+            }
+            return JsonResponse(data)
 
         detail = GetOrder(my_user.client_id,
                           my_user.secret_key).get_order(order_id)
+        print(detail)
         # detail_price = float(detail.result.purchase_units[0].amount.value)
         # if detail_price == product.price * amount:
         trx = CaptureOrder(my_user.client_id, my_user.secret_key).capture_order(
             order_id, debug=True)
         createPurchase(user_id=user_id, product=product, price=float(product.price) *
                        int(amount), unit_price=product.price, amount=amount, shopping_cart_product_id=shopping_cart_product_id)
-        data = {
-            "id": f"{trx.result.id}",
-            "nombre_cliente": f"{trx.result.payer.name.given_name}",
-            "mensaje": "Compra realizada exitosamente"
-        }
+        # data = {
+        #     "id": f"{trx.result.id}",
+        #     "nombre_cliente": f"{trx.result.payer.name.given_name}",
+        #     "mensaje": "Compra realizada exitosamente"
+        # }
         return redirect("myShopCart")
     except Exception as e:
-        return redirect("myShopCart")
+        data = {
+            "mensaje": "No se pudo realizar la compra porque no hay stock"
+        }
+        return JsonResponse(data)
     # else:
     #     data = {
     #         "mensaje": "No se pudo realizar la compra"
@@ -318,7 +325,7 @@ def payShopCart(request, id_shopping_cart):
 
 # -------------------------------Referido a historial-------------------------------#
 
-
+@login_required
 def myRecord(request):         # Renderiza la pagina del historial
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
@@ -330,6 +337,7 @@ def myRecord(request):         # Renderiza la pagina del historial
     return render(request, "MyRecord.html", {"purchases": historyProduct, 'user': user, 'my_user': my_user})
 
 
+@login_required
 def historyBuy(request, id_record):      # Renderiza la pagina del producto del historial
     historyProduct = Purchases.objects.get(id=id_record)
     return render(request, "historybuy.html", {"products": historyProduct})

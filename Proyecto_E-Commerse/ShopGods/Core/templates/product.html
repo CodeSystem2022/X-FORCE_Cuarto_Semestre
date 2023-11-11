@@ -34,9 +34,11 @@
                             <input name="numAmount" type="number" class="input" placeholder="Ingrese la cantidad" style="width:50%;" min="0" max="{{product.stock}}" oninput="validateInput()">                            <p>Precio total:  $</p>
                             <p class="priceTotal"></p>
                         </div>
+                        {% if product.user != request.user %}
                         <div class="field">
                             <button type="submit">Agregar al carrito</button>
                         </div>
+                        {% endif %}
                     </form>
                 {% endif %}
                 {% if not login %}

@@ -37,7 +37,6 @@
                     <div>Precio unitario: $ {{product.product.price}}</div>
                     <div>Tipo: {{product.product.type}}</div>
                     <div>Cantidad: {{product.amount}}</div>
-                    <a href="{% url 'myProductEdit' product.product.id%}">editar</a>
                 </td>
                 <td><a type="submit" class="nav-link delete-item" style="margin: 0;cursor:pointer;" href="{% url 'deleteShopCart' product.id %}">borrar producto</a></td>
                 <td><div class="pay-button nav-link">comprar producto<div id="paypal-button-container-{{ product.product.id }}" id-client="{{product.client_id}}" style="display:none;"></div></div></td>

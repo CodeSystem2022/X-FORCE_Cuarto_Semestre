@@ -22,7 +22,7 @@
         <tbody>
             {% for purchase in purchases %}
             <tr class="table-content ">
-               <td class="table-img"><a href="{% url 'historyBuy' product.id %}"><img class="img-main" src="../{{purchase.product.photo}}"/></td>
+               <td class="table-img"><a href="{% url 'historyBuy' purchase.product.id %}"><img class="img-main" src="../{{purchase.product.photo}}"/></td>
                 <td class="table-element">
                     <div><a class="titulo" href="{% url 'historyBuy' purchase.id %}">{{purchase.product.name}}</a></div>
                     <div style="overflow: hidden;max-height:9.5vh;">{{purchase.product.description|linebreaks}}</div>

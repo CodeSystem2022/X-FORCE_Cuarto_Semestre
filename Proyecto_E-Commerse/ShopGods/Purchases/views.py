@@ -187,6 +187,7 @@ def createPurchase(user_id: int, product: any, price: float, unit_price: float, 
                 item_list.append(i)
             Others.objects.bulk_update(item_list, ['puschase'])
         print('Asigna todos los items')
+        print('shopping_cart_product_id', shopping_cart_product_id)
         deleteItemOfShoppingCart(shopping_cart_product_id)
         print('Borra el producto y sale')
     except Exception as e:
@@ -194,7 +195,7 @@ def createPurchase(user_id: int, product: any, price: float, unit_price: float, 
         print('Hace rolback')
         print(e)
         transaction.set_rollback(True)
-        return {'error': str(e)}
+        return {'success': True, 'error': str(e)}
     return {'success': True}
 
 # def createPurchase(username: str):

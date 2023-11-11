@@ -56,8 +56,9 @@ urlpatterns = [
     # --------------------Referido a carrito de compras----------------------------------------------#
 
 
-    path("MyRecord/", views.myRecord, name="myRecord"),
-    path("Historybuy/<int:id_record>", views.historyBuy, name="historyBuy"),
+    path("MyRecord/",  login_required(views.myRecord), name="myRecord"),
+    path("Historybuy/<int:id_record>",
+         login_required(views.historyBuy), name="historyBuy"),
     #    path("Historybuy/<int:id_user>", views.Historybuy, name="Historybuy"),
 
 
