@@ -8,15 +8,15 @@ from Core import views
 
 
 urlpatterns = [
-    # -----------------------------Login---------------------------------------------------#
+    # -----------------------------Login y forgot password---------------------------------------------------#
     path('admin/', admin.site.urls),
     path('', include('Core.urls')),
     path('loginF/', views.loginF, name='loginF'),
     
-     path("reset_password/", auth_views.PasswordResetView.as_view(), name="password_reset"),
-     path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
-     path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-     path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+     path("reset_password/", auth_views.PasswordResetView.as_view(template_name="forgotPassword.html"), name="password_reset"),
+     path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(template_name="sucefullyMail.html"), name="password_reset_done"),
+     path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(template_name="restorePassword.html"), name="password_reset_confirm"),
+     path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(template_name="sucefullyPassword.html"), name="password_reset_complete"),
 
 
     # --------------------Referido a Usuarios----------------------------------------------#
