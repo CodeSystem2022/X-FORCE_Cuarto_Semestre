@@ -451,7 +451,12 @@ textarea {
 }
 
 .lista-datos li {
+    position: relative;
     padding: 12px 0px;
+    width: 50%;
+    height: auto;
+    word-wrap: break-word;
+    margin: 20px;
     
 }
 

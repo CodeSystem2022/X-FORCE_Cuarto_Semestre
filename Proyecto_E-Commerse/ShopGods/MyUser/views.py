@@ -62,10 +62,9 @@ def getMyUserByUser(user):
         return None
 
 
-def changeUser(username: str = None, old_username: str = None, password: str = None, email: str = None, client_id: str = '', secret_key: str = '', profile_photo: str = ''):
+def changeUser(old_username: str = None, password: str = None, email: str = None, client_id: str = '', secret_key: str = '', profile_photo: str = ''):
     try:
         user = getUserByUsername(username=old_username)
-        user.username = username
         user.email = email
         if password:
             user.set_password(password)

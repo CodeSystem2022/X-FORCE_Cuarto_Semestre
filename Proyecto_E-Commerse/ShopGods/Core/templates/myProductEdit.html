@@ -39,7 +39,7 @@
                     </div>
                     
                 </form>
-                <form action="/createItem/" method="POST"> {% csrf_token %}
+                <form id="formItem" action="/createItem/" method="POST"> {% csrf_token %}
                     <input type="hidden" name="id_product" value="{{product.id}}">
                     <div class="field items-table">
                         <table class="">
@@ -94,10 +94,10 @@
                     {% endif %}
 
 
-                    <button type="submit" class="redirection-button no-nullButton" style="margin: 0;">Agregar</button>
+                    <button type="submit" class="redirection-button"  style="margin: 0;">Agregar</button>
                 </form>
                 <div class="field">
-                    <a class="delete" href="{% url 'deleteProduct' product.id %}"><button type="submit">Eliminar producto</button></a>
+                    <a class="deleteproduct" href="{% url 'deleteProduct' product.id %}"><button type="submit">Eliminar producto</button></a>
                 </div>  
         </div>
     </div>
@@ -109,5 +109,6 @@
 
 </section>
 <div class="espaciador" style="position: relative; top: 150vh;">a</div>
+
 
 {%endblock%}

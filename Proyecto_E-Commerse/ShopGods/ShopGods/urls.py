@@ -1,15 +1,23 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.views import LoginView, LogoutView
-from Core import views
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as auth_views
+from Core import views
+
 
 urlpatterns = [
     # -----------------------------Login---------------------------------------------------#
     path('admin/', admin.site.urls),
     path('', include('Core.urls')),
     path('loginF/', views.loginF, name='loginF'),
+    
+     path("reset_password/", auth_views.PasswordResetView.as_view(), name="password_reset"),
+     path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+     path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+     path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+
 
     # --------------------Referido a Usuarios----------------------------------------------#
     path("registerUser/", views.registerUser, name="registerUser"),

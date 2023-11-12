@@ -61,7 +61,8 @@ def user(request, int_null):  # Renderiza la página de usuario
     # id = User.objects.get(id = iduser)
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
-    return render(request, "users.html", context={'user': user, 'my_user': my_user})
+    alert = int (int_null)
+    return render(request, "users.html", context={'user': user, 'my_user': my_user,"alert":alert})
 
 
 def addUser(request):  # Renderiza la página de registrar usuario
@@ -94,7 +95,7 @@ def editUser(request):  # Renderiza la página de editar usuario
 
 def modifyUser(request):  # Modifica un usuario
     user = {
-        'username': request.POST.get("txtusername"),
+        
         'old_username': request.user.username,
         'email': request.POST.get("txtemail"),
         'password': request.POST.get("txtpassword"),
@@ -104,13 +105,13 @@ def modifyUser(request):  # Modifica un usuario
         'profile_photo': request.POST.get("txtphoto")
     }
     if not user["password"] or not user["repassword"]:
-        response = changeUser(username=user["username"], old_username=user["old_username"],
+        response = changeUser(old_username=user["old_username"],
                               email=user["email"], client_id=user["client_id"], secret_key=user["secret_key"], profile_photo=user["profile_photo"])
         return redirect("user", int_null=0)
     if user["password"] == user["repassword"]:
-        changeUser(username=user["username"], old_username=user["old_username"], email=user["email"],
+        changeUser(old_username=user["old_username"], email=user["email"],
                    client_id=user["client_id"], secret_key=user["secret_key"], profile_photo=user["profile_photo"], password=user["password"])
-        return redirect("login", int_null=0)
+        return redirect("login")
 
 
 def deleteUser(request):  # Borra un usuario
@@ -197,6 +198,9 @@ def createItem(request):    # Crear un item
     product = getProductById(request.POST.get("id_product"))
     field1 = request.POST.get("txtitemfield1")
     field2 = request.POST.get("txtitemfield2")
+    
+    if (field1 == None) or (field2==None):
+        return redirect ("formNull", int_null=1) 
     if product.type == 'key':
         item = [
             {
