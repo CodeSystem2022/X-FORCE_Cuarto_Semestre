@@ -12,54 +12,65 @@
 
                 <div class="table-content">
                     <div >
-                        <div class="edit-img" style="width: 50vh;background-image: url('{{BASE_DIR}}/{{product.photo}}');"></div>
+                        <div class="edit-img" style="width: 50vh;background-image: url('{{BASE_DIR}}/{{historyProduct.product.photo}}');"></div>
                     </div>
                 <div class="table-element">
-                    <div class="field ">Nombre: {{product.name}}</div>
+                    <div class="field ">Nombre: {{historyProduct.product.name}}</div>
 
-                    <div class="field">Tipo: {{product.type}}</div>
+                    <div class="field">Tipo: {{historyProduct.product.type}}</div>
 
-                    <div class="field ">{{product.description|linebreaks}}</div>
+                    <div class="field ">{{historyProduct.product.description|linebreaks}}</div>
                     
-                    <div class="field">Precio: $ <div class="price">{{product.price}}</div></div>
+                    <div class="field">Precio unitario: $ {{historyProduct.unit_price}}</div>
 
-                    <div class="field ">Cantidad: <div class="product-stock">{{product.stock}}</div></div>
+                    <div class="field">Precio total: $ {{historyProduct.price}}</div>
+
+                    <div class="field ">Cantidad comprada: {{historyProduct.amount}}</div>
 
                 </div>
-                </div>
-                {% if login %}
-                    <form class="field"  action="{% url 'addProductToShoppingCartF' id_product=product.id %}" method="POST">{% csrf_token %}
-                        <p>Cantidad que se desea comprar:</p>
-                        <div class="field" style="flex-direction:row;">
-                            <input name="numAmount" type="number" class="input" placeholder="Ingrese la cantidad" style="width:50%;" min="0" max="{{product.stock}}" oninput="validateInput()">                            <p>Precio total:  $</p>
-                            <p class="priceTotal"></p>
-                        </div>
-                        <div class="field">
-                            <button type="submit">Agregar al carrito</button>
-                        </div>
-                    </form>
-                {% endif %}
-                {% if not login %}
-                    <p>Cantidad que se desea comprar:</p>
-                    <div class="field" style="flex-direction:row;">
-                        <input name="numAmount" type="number" class="input" placeholder="Ingrese la cantidad" style="width:50%;" min="0" max="{{product.stock}}" oninput="validateInput()">                            <p>Precio total:  $</p>
-                        <p class="priceTotal"></p>
-                    </div>
-                    <div class="field">
-                        <button type="submit" onclick="showAlert()">Agregar al carrito</button>
-                    </div>
-                    <script>
-                        function showAlert() {
-                            alert("¡Debe loguearse para añadir producto al carrito!");
-                        }
-                    </script>
-                {% endif %}
-        </div>
-    </div>
-    
                 
         </div>
+        <div class="field items-table">
+            <table class="">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        {% if product.type == 'mail' %}
+                        <th>Contraseña</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index in items %}
+                    <tr>
+                        {% if index.product.type == 'key' %}
+                         <td class="">Key:{{index.key}}</td>
+                        {% endif %}
+
+                        {% if index.product.type == 'mail' %}
+                            <td class="">Mail:{{index.mail}}</td>
+                            <td class="">{{index.password}}</td>
+                        {% endif %}
+
+                        {% if index.product.type == 'others' %}
+                        <td class="">Descripcion:{{index.description}}</td>
+                        {% endif %}
+
+                        {% if index.puschase %}
+                            <td class="">Comprador :{{index.puschase.user}}</td>
+                        {% endif %}
+                        {% if index.puschase == None %}
+                            <td class=""><a type="submit" class="nav-link delete-item" style="margin: 0;cursor:pointer;" href="{% url 'deleteItem' index.id product.id product.type %}">eliminar</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
     </div>
+
+    
 
     <div class="espaciador" style="position: relative; top: 50vh;">a</div>
 

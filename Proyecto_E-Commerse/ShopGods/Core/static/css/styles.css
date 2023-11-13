@@ -463,10 +463,11 @@ textarea {
 .redirection-button{
     position: relative;
     display: inline-block;
-    flex-direction: column;
+
     width: auto;
     max-height: fit-content;
-    margin: 3ch;
+    margin:1ch 1ch;
+
     white-space: nowrap;
 
     cursor: pointer;

@@ -1,4 +1,6 @@
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from Purchases.models import *
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -9,6 +11,7 @@ from ShoppingCart.views import *
 from Purchases.views import *
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
@@ -34,7 +37,7 @@ def main(request):
     actual_page = request.GET.get('actual_page')
     if isinstance(request.user, AnonymousUser):
         products = getProducts(actual_page=int(
-            actual_page) if actual_page else 1, amount_per_page=10, search='')
+            actual_page) if actual_page else 1, amount_per_page=5, search='')
         context = {
             'products': products['products'],
             'actual_page': products['actual_page'],
@@ -44,7 +47,7 @@ def main(request):
         user = getUserByUsername(request.user.username)
         my_user = getMyUserByUser(user=user)
         products = getProducts(actual_page=int(
-            actual_page) if actual_page else 1, amount_per_page=10, search='', username=user.username)
+            actual_page) if actual_page else 1, amount_per_page=5, search='', username=user.username)
         context = {
             'my_user': my_user,
             'products': products['products'],
@@ -61,8 +64,8 @@ def user(request, int_null):  # Renderiza la página de usuario
     # id = User.objects.get(id = iduser)
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
-    alert = int (int_null)
-    return render(request, "users.html", context={'user': user, 'my_user': my_user,"alert":alert})
+    alert = int(int_null)
+    return render(request, "users.html", context={'user': user, 'my_user': my_user, "alert": alert})
 
 
 def addUser(request):  # Renderiza la página de registrar usuario
@@ -95,7 +98,7 @@ def editUser(request):  # Renderiza la página de editar usuario
 
 def modifyUser(request):  # Modifica un usuario
     user = {
-        
+
         'old_username': request.user.username,
         'email': request.POST.get("txtemail"),
         'password': request.POST.get("txtpassword"),
@@ -136,6 +139,13 @@ def addProduct(request):  # Renderiza la página para agregar un nuevo producto
     return render(request, "addProduct.html", context={'user': user, 'my_user': my_user})
 
 
+@login_required
+def addProduct2(request, msg):  # Renderiza la página para agregar un nuevo producto
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    return render(request, "addProduct.html", context={'user': user, 'my_user': my_user, msg: msg})
+
+
 def createProductF(request):  # Crea un nuevo producto
     product = {
         'photo': request.FILES.get('filephoto'),
@@ -147,8 +157,9 @@ def createProductF(request):  # Crea un nuevo producto
     }
     product = createProduct(product)
 
-    if createProduct(product) == False:
-        return redirect("formNull", int_null=1)
+    if product == False:
+        msg = 'El producto no puedo ser creado correctamente'
+        return redirect("addProduct2", msg=msg)
     else:
         product = createProduct(product)
         return redirect("myProducts")
@@ -162,6 +173,17 @@ def myProductEdit(request, id_product):  # Renderiza la página para editar un p
     response = getItemsByProduct(
         product=product, type=product.type, amount_per_page=100000)
     return render(request, "myProductEdit.html", context={"product": product, 'user': user, 'my_user': my_user, 'items': response['items']})
+
+
+@login_required
+# Renderiza la página para editar un producto
+def myProductEdit2(request, id_product, msg):
+    product = getProductById(id_product)
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    response = getItemsByProduct(
+        product=product, type=product.type, amount_per_page=100000)
+    return render(request, "myProductEdit.html", context={"product": product, 'user': user, 'my_user': my_user, 'items': response['items'], 'msg': msg})
 
 
 def updateProductF(request):  # Modifica un producto
@@ -198,16 +220,20 @@ def createItem(request):    # Crear un item
     product = getProductById(request.POST.get("id_product"))
     field1 = request.POST.get("txtitemfield1")
     field2 = request.POST.get("txtitemfield2")
-    
-    if (field1 == None) or (field2==None):
-        return redirect ("formNull", int_null=1) 
+    data = {
+        "msg": "Debe rellenar los campos para agregar un nuevo item"
+    }
     if product.type == 'key':
+        if not field1:
+            return redirect("myProductEdit2", id_product=product.id, msg=data['msg'])
         item = [
             {
                 'key': field1
             }
         ]
     if product.type == 'mail':
+        if not field1 or not field2:
+            return redirect("myProductEdit2", id_product=product.id, msg=data['msg'])
         item = [
             {
                 'mail': field1,
@@ -215,6 +241,8 @@ def createItem(request):    # Crear un item
             }
         ]
     if product.type == 'others':
+        if not field1:
+            return redirect("myProductEdit2", id_product=product.id, msg=data['msg'])
         item = [
             {
                 'description': field1
@@ -231,19 +259,6 @@ def deleteItem(request, id_item, id_product, product_type):
     deleteItemById(id=id_item, type=product_type)
     return redirect("myProductEdit", id_product)
 # -------------------------------Referido a ShopCart---------------------------------------#
-
-
-@login_required
-def myShopCart(request):  # Renderiza la pagina del carrito de compra
-    user = getUserByUsername(request.user.username)
-    my_user = getMyUserByUser(user=user)
-    shopping_cart_products = getProductsOfShoppingCart(user.username)
-    print(shopping_cart_products)
-
-    for shop_cart_product in shopping_cart_products:
-        shop_cart_product.client_id = getMyUserByUser(
-            shop_cart_product.product.user).client_id
-    return render(request, "myShopCart.html", context={'user': user, 'my_user': my_user, 'shopping_cart_products': shopping_cart_products})
 
 
 # Agrega un producto al carrito
@@ -266,20 +281,48 @@ def deleteShopCart(request, id_shopcart):  # Borra un producto del carrito
 # def deleteItemOfShoppingCartF(request):
 
 
+@login_required
+def myShopCart(request):  # Renderiza la pagina del carrito de compra
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    shopping_cart_products = getProductsOfShoppingCart(user.username)
+    print(shopping_cart_products)
+
+    for shop_cart_product in shopping_cart_products:
+        shop_cart_product.client_id = getMyUserByUser(
+            shop_cart_product.product.user).client_id
+
+    return render(request, "myShopCart.html", context={'user': user, 'my_user': my_user, 'shopping_cart_products': shopping_cart_products})
+
+
+@login_required
+def myShopCart2(request, mensaje):  # Renderiza la pagina del carrito de compra
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
+    shopping_cart_products = getProductsOfShoppingCart(user.username)
+    print(shopping_cart_products)
+
+    for shop_cart_product in shopping_cart_products:
+        shop_cart_product.client_id = getMyUserByUser(
+            shop_cart_product.product.user).client_id
+
+    return render(request, "myShopCart.html", context={'user': user, 'my_user': my_user, 'shopping_cart_products': shopping_cart_products, 'mensaje': mensaje})
+
 # hay que modificar funcion delete product para que no borre si tiene una compra
+
+
 def pago(request):
     # Debe buscar si el usaurio actual tiene una compra cerrar
     # Si esta cerrada debe crear una nueva, y si esta abierta debe agregar agregar productos
     try:
         print('Entro a pago')
         data = json.loads(request.body)
-        user_id = data['user_id']
         order_id = data['orderID']
         product_id = data['product_id']
         amount = data['amount']
         shopping_cart_product_id = data['shopping_cart_product_id']
         product = getProductById(product_id)
-        my_user = getMyUserByUserId(user_id=user_id)
+        my_user = getMyUserByUserId(user_id=product.user.id)
 
         print('order_id', order_id)
         print('my_user.client_id', my_user.client_id)
@@ -288,11 +331,8 @@ def pago(request):
         response = thereIsStock(product=product, amount=amount)
         print(response)
         if response['stock'] == False:
-            data = {
-                "mensaje": "No se pudo realizar la compra porque no hay stock"
-            }
-            return JsonResponse(data)
-
+            mensaje = "No se pudo realizar la compra porque no hay stock"
+            return JsonResponse({'mensaje': mensaje, 'redirect_url': reverse('myShopCart2', args=[mensaje])})
         detail = GetOrder(my_user.client_id,
                           my_user.secret_key).get_order(order_id)
         print(detail)
@@ -300,19 +340,19 @@ def pago(request):
         # if detail_price == product.price * amount:
         trx = CaptureOrder(my_user.client_id, my_user.secret_key).capture_order(
             order_id, debug=True)
-        createPurchase(user_id=user_id, product=product, price=float(product.price) *
+        createPurchase(user_id=request.user.id, product=product, price=float(product.price) *
                        int(amount), unit_price=product.price, amount=amount, shopping_cart_product_id=shopping_cart_product_id)
         # data = {
         #     "id": f"{trx.result.id}",
         #     "nombre_cliente": f"{trx.result.payer.name.given_name}",
         #     "mensaje": "Compra realizada exitosamente"
         # }
-        return redirect("myShopCart")
+        print('Va a redirigir')
+        return JsonResponse({'mensaje': 'Compra realizada exitosamente', 'redirect_url': reverse('myShopCart')})
     except Exception as e:
-        data = {
-            "mensaje": "No se pudo realizar la compra porque no hay stock"
-        }
-        return JsonResponse(data)
+        print(e)
+        mensaje = f"Error {e}"
+        return JsonResponse({'mensaje': mensaje, 'redirect_url': reverse('myShopCart2', args=[mensaje])})
     # else:
     #     data = {
     #         "mensaje": "No se pudo realizar la compra"
@@ -333,18 +373,31 @@ def payShopCart(request, id_shopping_cart):
 def myRecord(request):         # Renderiza la pagina del historial
     user = getUserByUsername(request.user.username)
     my_user = getMyUserByUser(user=user)
+    buy = request.GET.get('buy')
+    if buy == '1':
+        historyProduct = Purchases.objects.filter(user=user)
+        buy = True
+    else:
+        historyProduct = Purchases.objects.filter(product__user=user)
+        buy = False
 
-    historyProductClient = Purchases.objects.filter(user__id=user.id)
-    historyProductSeller = Purchases.objects.filter(
-        product__user__id=user.id)
-    historyProduct = list(historyProductClient) + list(historyProductSeller)
-    return render(request, "MyRecord.html", {"purchases": historyProduct, 'user': user, 'my_user': my_user})
+    return render(request, "myRecord.html", {"purchases": historyProduct, 'user': user, 'my_user': my_user, 'buy': buy})
 
 
 @login_required
 def historyBuy(request, id_record):      # Renderiza la pagina del producto del historial
+    user = getUserByUsername(request.user.username)
+    my_user = getMyUserByUser(user=user)
     historyProduct = Purchases.objects.get(id=id_record)
-    return render(request, "historybuy.html", {"products": historyProduct})
+    if historyProduct.product.type == 'key':
+        items = Key.objects.filter(puschase=historyProduct)
+    if historyProduct.product.type == 'mail':
+        items = Mail.objects.filter(puschase=historyProduct)
+    if historyProduct.product.type == 'others':
+        items = Others.objects.filter(puschase=historyProduct)
+
+    print(items[0].product.type)
+    return render(request, "historybuy.html", context={"historyProduct": historyProduct, 'my_user': my_user, 'productType': historyProduct.product.type, 'items': items})
 
 
 # -------------------------------Referido a funciones varias-------------------------------#

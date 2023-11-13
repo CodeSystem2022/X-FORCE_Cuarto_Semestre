@@ -12,11 +12,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Core.urls')),
     path('loginF/', views.loginF, name='loginF'),
-    
-     path("reset_password/", auth_views.PasswordResetView.as_view(template_name="forgotPassword.html"), name="password_reset"),
-     path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(template_name="sucefullyMail.html"), name="password_reset_done"),
-     path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(template_name="restorePassword.html"), name="password_reset_confirm"),
-     path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(template_name="sucefullyPassword.html"), name="password_reset_complete"),
+    path('logout/', LogoutView.as_view(template_name="login.html"), name='logout'),
+
+    path("reset_password/", auth_views.PasswordResetView.as_view(
+        template_name="forgotPassword.html"), name="password_reset"),
+    path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(
+        template_name="sucefullyMail.html"), name="password_reset_done"),
+    path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(
+        template_name="restorePassword.html"), name="password_reset_confirm"),
+    path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(
+        template_name="sucefullyPassword.html"), name="password_reset_complete"),
 
 
     # --------------------Referido a Usuarios----------------------------------------------#
@@ -31,10 +36,13 @@ urlpatterns = [
 
     path("MyProducts/", login_required(views.myProducts), name="myProducts"),
     path("addProduct/", views.addProduct, name="addProduct"),
+    path("addProduct2/<str:msg>", views.addProduct2, name="addProduct2"),
     path("createProductF/", views.createProductF, name="createProductF"),
     path("updateProductF/", views.updateProductF, name="updateProductF"),
     path("myProductEdit/<int:id_product>/",
          views.myProductEdit, name="myProductEdit"),
+    path("myProductEdit2/<int:id_product>/<str:msg>",
+         views.myProductEdit2, name="myProductEdit2"),
     path("product/<int:id_product>/", views.product, name="product"),
     path("deleteProduct/<int:id_product>/",
          views.deleteProduct, name="deleteProduct"),
@@ -47,6 +55,7 @@ urlpatterns = [
 
 
     path("MyShopCart/", views.myShopCart, name="myShopCart"),
+    path("MyShopCart2/<str:mensaje>/", views.myShopCart2, name="myShopCart2"),
     path("addProductToShoppingCartF/<int:id_product>/",
          views.addProductToShoppingCartF, name="addProductToShoppingCartF"),
     path("deleteShopCart/<int:id_shopcart>/",
@@ -61,7 +70,6 @@ urlpatterns = [
 
 
 
-    # --------------------Referido a carrito de compras----------------------------------------------#
 
 
     path("MyRecord/",  login_required(views.myRecord), name="myRecord"),

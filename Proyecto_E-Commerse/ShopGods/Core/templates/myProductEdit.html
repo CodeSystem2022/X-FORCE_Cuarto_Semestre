@@ -92,7 +92,10 @@
                     {% if product.type == 'others' %}
                     <input type="text" placeholder="Ingrese su valor:" name="txtitemfield1" class="input no-nullInput" value="" style="left: -10px;">
                     {% endif %}
+                    {% if msg %}
+                    <p style="color: red; padding-bottom: 10px;">{{msg}}</p>
 
+                    {% endif %}
 
                     <button type="submit" class="redirection-button"  style="margin: 0;">Agregar</button>
                 </form>

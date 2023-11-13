@@ -2,6 +2,9 @@
 
 {% block body %}
  <div class="content">
+    <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+        Mis productos
+    </p>
     <div class="field">
         <a href="{% url 'addProduct' %}">Cargar nuevo producto</a>
     </div>
@@ -17,7 +20,7 @@
                     <div>Precio:  ${{product.price}}</div>
                     <div>Tipo: {{product.type}}</div>
                     <div>Stock: {{product.stock}}</div>
-                    <a href="{% url 'myProductEdit' product.id%}">editar</a>
+                    <a href="{% url 'myProductEdit' product.id %}">editar</a>
                 </td>
             </tr>
             {% endfor %}            

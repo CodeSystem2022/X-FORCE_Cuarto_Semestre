@@ -2,24 +2,20 @@
 
 {% block body %}
  <div class="content">
-    {% comment %} <img src="{{ purchase.photo.url }}"> {% endcomment %}
-    <p>Pagina {{actual_page}} De {{page_amount}}</p>
     <span>
-        {% if actual_page > 1 %}
-        <a href="{% url 'main' %}?actual_page={{ actual_page|add:'-1' }}">&laquo; back</a>
-        {% endif %}
-        {% if actual_page == 1 %}
-        &laquo; back
-        {% endif %}
-        {% if actual_page < page_amount %}
-        <a href="{% url 'main' %}?actual_page={{ actual_page|add:1 }}">next &raquo;</a>
-        {% endif %}
-        {% if actual_page == page_amount %}
-        next &raquo;
-        {% endif %}
+        <a href="{% url 'myRecord' %}?buy=1" style="margin-right: 10px;">Compras</a>
+        <a href="{% url 'myRecord' %}?buy=0">Ventas</a>    
     </span>
     <table>
         <tbody>
+            <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+                {% if buy %}
+                    Historial de compras
+                {% endif %}
+                {% if not buy %}
+                Historial de ventas
+                {% endif %}
+            </p>
             {% for purchase in purchases %}
             <tr class="table-content ">
                <td class="table-img"><a href="{% url 'historyBuy' purchase.product.id %}"><img class="img-main" src="../{{purchase.product.photo}}"/></td>
@@ -30,6 +26,7 @@
                     <div>Precio: ${{purchase.product.price}}</div>
                     <div>Tipo: {{purchase.product.type}}</div>
                     <div>Stock: {{purchase.product.stock}}</div>
+                    <div></div>
                 </td>
             </tr>
             {% endfor %}
