@@ -1,0 +1,39 @@
+{% extends "./templateMain.html" %}
+
+{% block body %}
+ <div class="content">
+    <span>
+        <a href="{% url 'myRecord' %}?buy=1" style="margin-right: 10px;">Compras</a>
+        <a href="{% url 'myRecord' %}?buy=0">Ventas</a>    
+    </span>
+    <table>
+        <tbody>
+            <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+                {% if buy %}
+                    Historial de compras
+                {% endif %}
+                {% if not buy %}
+                Historial de ventas
+                {% endif %}
+            </p>
+            {% for purchase in purchases %}
+            <tr class="table-content ">
+               <td class="table-img"><a href="{% url 'historyBuy' purchase.product.id %}"><img class="img-main" src="../{{purchase.product.photo}}"/></td>
+                <td class="table-element">
+                    <div><a class="titulo" href="{% url 'historyBuy' purchase.id %}">{{purchase.product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{purchase.product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio: ${{purchase.product.price}}</div>
+                    <div>Tipo: {{purchase.product.type}}</div>
+                    <div>Stock: {{purchase.product.stock}}</div>
+                    <div></div>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    <div class="espaciador" style="position: relative; top: 20vh;"></div>
+</div>
+
+{% endblock %}

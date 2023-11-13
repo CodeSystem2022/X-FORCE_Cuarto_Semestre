@@ -1,22 +1,92 @@
-"""
-URL configuration for ShopGods project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as auth_views
+from Core import views
+
 
 urlpatterns = [
+    # -----------------------------Login y forgot password---------------------------------------------------#
     path('admin/', admin.site.urls),
+    path('', include('Core.urls')),
+    path('loginF/', views.loginF, name='loginF'),
+    path('logout/', LogoutView.as_view(template_name="login.html"), name='logout'),
+
+    path("reset_password/", auth_views.PasswordResetView.as_view(
+        template_name="forgotPassword.html"), name="password_reset"),
+    path("reset_password_send/", auth_views.PasswordResetDoneView.as_view(
+        template_name="sucefullyMail.html"), name="password_reset_done"),
+    path("reset/<uidb64>/<token>", auth_views.PasswordResetConfirmView.as_view(
+        template_name="restorePassword.html"), name="password_reset_confirm"),
+    path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(
+        template_name="sucefullyPassword.html"), name="password_reset_complete"),
+
+
+    # --------------------Referido a Usuarios----------------------------------------------#
+    path("registerUser/", views.registerUser, name="registerUser"),
+    path("modifyUser/", views.modifyUser, name="modifyUser"),
+    path("editUser/", login_required(views.editUser), name="editUser"),
+    path('addUser/', views.addUser, name='addUser'),
+    path("deleteUser/", views.deleteUser, name="deleteUser"),
+    path("user/<int:int_null>", login_required(views.user), name="user"),
+
+    # --------------------Referido a Productos----------------------------------------------#
+
+    path("MyProducts/", login_required(views.myProducts), name="myProducts"),
+    path("addProduct/", views.addProduct, name="addProduct"),
+    path("addProduct2/<str:msg>", views.addProduct2, name="addProduct2"),
+    path("createProductF/", views.createProductF, name="createProductF"),
+    path("updateProductF/", views.updateProductF, name="updateProductF"),
+    path("myProductEdit/<int:id_product>/",
+         views.myProductEdit, name="myProductEdit"),
+    path("myProductEdit2/<int:id_product>/<str:msg>",
+         views.myProductEdit2, name="myProductEdit2"),
+    path("product/<int:id_product>/", views.product, name="product"),
+    path("deleteProduct/<int:id_product>/",
+         views.deleteProduct, name="deleteProduct"),
+
+    path("createItem/", views.createItem, name="createItem"),
+    path("deleteItem/<int:id_item>/<int:id_product>/<str:product_type>/",
+         views.deleteItem, name="deleteItem"),
+
+    # --------------------Referido a carrito de compras----------------------------------------------#
+
+
+    path("MyShopCart/", views.myShopCart, name="myShopCart"),
+    path("MyShopCart2/<str:mensaje>/", views.myShopCart2, name="myShopCart2"),
+    path("addProductToShoppingCartF/<int:id_product>/",
+         views.addProductToShoppingCartF, name="addProductToShoppingCartF"),
+    path("deleteShopCart/<int:id_shopcart>/",
+         views.deleteShopCart, name="deleteShopCart"),
+    path("payShopCart/<int:id_shopping_cart>/",
+         views.payShopCart, name="payShopCart"),
+    path("pago/",
+         views.pago, name="pago"),
+
+
+    path("Main/", views.main, name="main"),
+
+
+
+
+
+    path("MyRecord/",  login_required(views.myRecord), name="myRecord"),
+    path("Historybuy/<int:id_record>",
+         login_required(views.historyBuy), name="historyBuy"),
+    #    path("Historybuy/<int:id_user>", views.Historybuy, name="Historybuy"),
+
+
+
+
+    # --------------------Otros programas----------------------------------------------#
+    path('darkMode/', views.darkMode, name='darkMode'),
+
+    path('formNull/<int:int_null>', views.formNull, name='formNull'),
+
+    # ----------Rutas de la aplicación----------#
+    path('login/', include('Core.urls')),
+
+    path('test/product/', include('Product.urls')),
 ]

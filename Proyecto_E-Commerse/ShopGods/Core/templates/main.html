@@ -1,0 +1,45 @@
+{% extends "./templateMain.html" %}
+
+{% block body %}
+ <div class="content">
+    <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+        Productos
+    </p>
+    {% comment %} <img src="{{ product.photo.url }}"> {% endcomment %}
+    <p>Pagina {{actual_page}} De {{page_amount}}</p>
+    <span>
+        {% if actual_page > 1 %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:'-1' }}">&laquo; back</a>
+        {% endif %}
+        {% if actual_page == 1 %}
+        &laquo; back
+        {% endif %}
+        {% if actual_page < page_amount %}
+        <a href="{% url 'main' %}?actual_page={{ actual_page|add:1 }}">next &raquo;</a>
+        {% endif %}
+        {% if actual_page == page_amount %}
+        next &raquo;
+        {% endif %}
+    </span>
+    <table>
+        <tbody>
+            {% for product in products %}
+            <tr class="table-content ">
+               <td class="table-img"><a href="{% url 'product' product.id %}"><img class="img-main" src="../{{product.photo}}"/></td>
+                <td class="table-element">
+                    <div><a class="titulo" href="{% url 'product' product.id %}">{{product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio: ${{product.price}}</div>
+                    <div>Tipo: {{product.type}}</div>
+                    <div>Stock: {{product.stock}}</div>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    <div class="espaciador" style="position: relative; top: 20vh;"></div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "./templateSingular.html" %}
+
+
+{% block body %}
+<section class="container forms">
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-portada"></div> 
+    </section>
+    <div class="form"  style="top:30vh;">
+        <div class="form-content">
+            <h1 class="log">producto</h1>
+
+                <div class="table-content">
+                    <div >
+                        <div class="edit-img" style="width: 50vh;background-image: url('{{BASE_DIR}}/{{historyProduct.product.photo}}');"></div>
+                    </div>
+                <div class="table-element">
+                    <div class="field ">Nombre: {{historyProduct.product.name}}</div>
+
+                    <div class="field">Tipo: {{historyProduct.product.type}}</div>
+
+                    <div class="field ">{{historyProduct.product.description|linebreaks}}</div>
+                    
+                    <div class="field">Precio unitario: $ {{historyProduct.unit_price}}</div>
+
+                    <div class="field">Precio total: $ {{historyProduct.price}}</div>
+
+                    <div class="field ">Cantidad comprada: {{historyProduct.amount}}</div>
+
+                </div>
+                
+        </div>
+        <div class="field items-table">
+            <table class="">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        {% if product.type == 'mail' %}
+                        <th>Contraseña</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index in items %}
+                    <tr>
+                        {% if index.product.type == 'key' %}
+                         <td class="">Key:{{index.key}}</td>
+                        {% endif %}
+
+                        {% if index.product.type == 'mail' %}
+                            <td class="">Mail:{{index.mail}}</td>
+                            <td class="">{{index.password}}</td>
+                        {% endif %}
+
+                        {% if index.product.type == 'others' %}
+                        <td class="">Descripcion:{{index.description}}</td>
+                        {% endif %}
+
+                        {% if index.puschase %}
+                            <td class="">Comprador :{{index.puschase.user}}</td>
+                        {% endif %}
+                        {% if index.puschase == None %}
+                            <td class=""><a type="submit" class="nav-link delete-item" style="margin: 0;cursor:pointer;" href="{% url 'deleteItem' index.id product.id product.type %}">eliminar</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+
+    
+
+    <div class="espaciador" style="position: relative; top: 50vh;">a</div>
+
+
+</section>
+
+{%endblock%}

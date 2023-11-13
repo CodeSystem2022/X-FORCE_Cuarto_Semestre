@@ -1,0 +1,91 @@
+{% extends "./templateSingular.html" %} {% block body %}
+<section class="seccion-perfil-usuario">
+  <div class="perfil-usuario-portada">
+    <div
+      class="perfil-usuario-avatar"
+      style="background-image: url('{{ my_user.profile_photo}}');"
+    ></div>
+  </div>
+  <div class="perfil-usuario-body" style="top: 30px">
+    <form method="POST" action="/modifyUser/">
+      {% csrf_token %}
+      <div class="perfil-usuario-footer">
+        <ul class="lista-inputs">
+          <li>
+            <div>Imagen (copiar direccion de imagen)</div>
+            <input
+              class="input"
+              type="text"
+              placeholder="Pegue su direccion aquí"
+              value="{{my_user.profile_photo}}"
+              name="txtphoto"
+            />
+          </li>
+          <!-- <li>
+            <div>Nombre</div>
+            <input
+              class="input"
+              type="text"
+              placeholder="Nombre de usuario"
+              value="{{user.username}}"
+              name="txtusername"
+            />
+          </li> -->
+          <li>
+            <div>Mail</div>
+            <input
+              class="input"
+              type="mail"
+              placeholder="Correo"
+              value="{{user.email}}"
+              name="txtemail"
+            />
+          </li>
+          <li>
+            <div>Constraseña</div>
+            <input
+              class="input"
+              type="password"
+              placeholder="Ingrese contraseña"
+              name="txtpassword"
+            />
+          </li>
+          <li>
+            <div>Confirmacion</div>
+            <input
+              class="input"
+              type="password"
+              placeholder="Confirmar contraseña"
+              name="txtrepassword"
+            />
+          </li>
+          <li>
+            <div>Id de paypal</div>
+            <input
+              class="input"
+              type="text"
+              placeholder="Id de paypal"
+              value="{{my_user.client_id}}"
+              name="txtclient_id"
+            />
+          </li>
+          <li>
+            <div>Clave de paypal</div>
+            <input
+              class="input"
+              type="text"
+              placeholder="Clave de paypal"
+              value="{{my_user.secret_key}}"
+              name="txtsecret_key"
+            />
+          </li>
+        </ul>
+      </div>
+      <div class="footer-form">
+        <button type="submit" class="redirection-button">Editar</button>
+      </div>
+    </form>
+  </div>
+</section>
+<div class="espaciador" style="position: relative; top: 20vh">a</div>
+{%endblock%}

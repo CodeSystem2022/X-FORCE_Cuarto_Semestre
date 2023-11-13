@@ -1,0 +1,67 @@
+{% extends "./templateSingular.html" %}
+
+
+{% block body %}
+
+<section class="container forms">
+    <section class="seccion-perfil-usuario">
+        <div class="perfil-usuario-portada"></div> 
+    </section>
+    <div class="form" style="top:30vh;">
+        <div class="form-content">
+            <h1 class="log">Agregar producto</h1>
+                <form action="/createProductF/" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <input type="hidden" name="id_product" value="">
+                <div class="table-content">
+                    <div >
+                        <input type="file" id="id_imagen" name="filephoto" class="" style="left: -10px;">
+                        
+                    </div>
+                <div class="table-element">
+                    <div class="field ">
+                        <input type="text" placeholder="Nombre del producto" name="txtname" class="input" value="" style="left: -10px;">
+                    </div>
+
+                    <div class="field">
+                        <select name="selecttype" class="field" style="top:-10px">
+                            <option class="input" value="key">Clave</option>
+                            <option class="input" value="mail">Mail</option>
+                            <option class="input" value="others">Otros</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="field">
+                        <textarea type="text" placeholder="Descripción del producto" name="txtdescription" class="input" style="left: -10px;">{{product.description}}</textarea>
+                    </div>
+                    
+                    <div class="field">
+                        <input type="number" placeholder="Precio" name="numprice" class="numberprice" value="" style="left: -10px;">
+                        <i class='bx bx-hide eye-icon' ></i>
+                    </div>
+
+                    {% if msg %}
+                    <p style="color: red; padding-bottom: 10px;">{{msg}}</p>
+                    {% endif %}
+
+                </div>
+                </div>
+                    <div class="field">
+                        <button type="submit">Agregar producto</button>
+                    </div>
+                </form>
+
+
+                
+        </div>
+    </div>
+    
+                
+        </div>
+    </div>
+
+
+</section>
+<div class="espaciador" style="position: relative; top: 80vh;">a</div>
+
+{%endblock%}

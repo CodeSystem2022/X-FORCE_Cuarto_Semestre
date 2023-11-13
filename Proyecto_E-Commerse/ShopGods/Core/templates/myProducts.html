@@ -1,0 +1,31 @@
+{% extends "./templateMain.html" %}
+
+{% block body %}
+ <div class="content">
+    <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+        Mis productos
+    </p>
+    <div class="field">
+        <a href="{% url 'addProduct' %}">Cargar nuevo producto</a>
+    </div>
+    <table>
+        <tbody>
+            {% for product in products %}
+            <tr class="table-content ">
+               <td class="table-img"><a href="{% url 'product' product.id %}"><img class="img-main" src="../{{product.photo}}"/></td>
+                <td class="table-element">
+                    <div><a class="titulo" href="{% url 'product' product.id %}">{{product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio:  ${{product.price}}</div>
+                    <div>Tipo: {{product.type}}</div>
+                    <div>Stock: {{product.stock}}</div>
+                    <a href="{% url 'myProductEdit' product.id %}">editar</a>
+                </td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+    <div class="espaciador" style="position: relative; top: 40vh;"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+
+{% extends "./templateMain.html" %}
+
+{% block body %}
+ <div class="content">
+    <p id="result-message"></p>
+    <!-- Replace the "test" client-id value with your client-id -->
+    <script>
+        function token(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = token('csrftoken');
+    </script>
+    <script class="una-variable-mas" src="https://www.paypal.com/sdk/js?client-id=ATwjK8NnYWMS9KuPh02UJdAVfTsjJw8V3EkmBGWNvJ4q9LORfJq0RPaKHwn_FYTv67-SzI_fKla4BeJk&currency=USD"></script> <!--&currency=AR-->
+    <p class="log" style="text-align: center; font-family: 'Montserrat', sans-serif;">
+        Carrito de compras
+    </p>
+    <table>
+        <tbody>
+            {% if mensaje %}
+            <p style="color: red; padding-bottom: 10px;">{{mensaje}}</p>
+            {% endif %}
+            {% for product in shopping_cart_products %}
+            <tr class="table-content ">
+               <td class="table-img"><a href="{% url 'product' product.product.id %}"><img class="img-main" src="../{{product.product.photo}}"/></td>
+                <td class="table-element">
+                    <div><a class="titulo" href="{% url 'product' product.product.id %}">{{product.product.name}}</a></div>
+                    <div style="overflow: hidden;max-height:9.5vh;">{{product.product.description|linebreaks}}</div>
+                    <div>...</div>
+                    <div>Precio unitario: $ {{product.product.price}}</div>
+                    <div>Tipo: {{product.product.type}}</div>
+                    <div>Cantidad: {{product.amount}}</div>
+                </td>
+                <td><a type="submit" class="nav-link delete-item" style="margin: 0;cursor:pointer;" href="{% url 'deleteShopCart' product.id %}">borrar producto</a></td>
+                <td><div class="pay-button nav-link">comprar producto<div id="paypal-button-container-{{ product.product.id }}" id-client="{{product.client_id}}" style="display:none;"></div></div></td>
+                {% comment %} id-client="{{}}" {% endcomment %}
+            </tr>
+            <script>
+                    paypal.Buttons({
+                createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat('{{ product.product.price|floatformat:"2" }}') * {{ product.amount }}
+                        }
+                    }]
+                });
+                },
+                onApprove: function(data) {
+                    return fetch('/pago/', {
+                        method: 'POST',
+                        headers: {
+                        'content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                        },
+                        body: JSON.stringify({
+                        orderID: data.orderID,
+                        product_id: '{{product.product.id}}',
+                        amount: '{{product.amount}}',
+                        shopping_cart_product_id: '{{product.id}}'
+                        })
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(details) {
+                        window.location.href = details.redirect_url;
+                    })
+                }
+            })
+            .render("#paypal-button-container-{{ product.product.id }}");
+            </script>
+            {% endfor %}    
+        </tbody>
+    </table>
+    
+</div>
+
+
+
+{% endblock %}
